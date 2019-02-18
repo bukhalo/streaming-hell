@@ -2,4 +2,4 @@
 Telegram bot for share music with anyone no matter the platform
 
 # Donators
-- @ekzotech 200₽
+- [@ekzotech](https://github.com/ekzotech) 200₽
