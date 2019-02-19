@@ -1,5 +1,6 @@
-# [Steaming Hell](https://teleg.run/streaminghell_bot)
+# [Streaming Hell](https://teleg.run/streaminghell_bot)
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+
 Telegram bot for share music with anyone no matter the platform
 
 ## Contributors
