@@ -19,14 +19,26 @@
       ]
     },
     {
-       "login": "tafler",
-       "name": "taffik",
-       "avatar_url": "https://avatars0.githubusercontent.com/u/6934296?v=4",
-       "profile": "https://github.com/tafler",
-       "contributions": [
-         "code"
-       ]
-     }
+      "login": "tafler",
+      "name": "taffik",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/6934296?v=4",
+      "profile": "https://github.com/tafler",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "bukhalo",
+      "name": "Aleksandr",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/14031838?v=4",
+      "profile": "https://bukhalo.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "example",
+        "tutorial"
+      ]
+    }
   ],
   "contributorsPerLine": 7
 }
