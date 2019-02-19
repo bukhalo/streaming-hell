@@ -1,0 +1,23 @@
+{
+  "projectName": "streaming-hell",
+  "projectOwner": "bukhalo",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Derik117",
+      "name": "Artyom Chebotarev",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/8479647?v=4",
+      "profile": "https://github.com/Derik117",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
