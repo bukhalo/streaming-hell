@@ -3,6 +3,25 @@
 
 Telegram bot for share music with anyone no matter the platform
 
+## Install
+```bash
+# clone repository
+git@github.com:bukhalo/streaming-hell.git
+```
+
+## Usage
+Create a .env file in the root directory of your project. Add `TOKEN` environment variable on new line in the form of `NAME=VALUE`. For example:
+```http request
+TOKEN=143544347:AABL4pyT74VFGRO5iO8h_r1PTZpNwO4JqPn
+```
+> You can get own token from @BotFather in Telegram
+
+And run bot:
+```bash
+yarn start
+```
+That's it.
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://github.com/all-contributors/all-contributors#emoji-key)):
@@ -15,5 +34,5 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/all-contri
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-# Donators
+## Donators
 - [@ekzotech](https://github.com/ekzotech) 200₽

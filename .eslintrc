@@ -1,0 +1,13 @@
+{
+  "root": true,
+  "extends": ["airbnb-base", "prettier", "prettier/babel"],
+  "plugins": ["prettier", "import"],
+  "rules": {
+    "prettier/prettier": ["error"]
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    }
+  }
+}
