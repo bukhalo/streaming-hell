@@ -14,30 +14,28 @@ bot.hears('тотален', (ctx) => ctx.reply('100% пидор'));
 bot.on('message', async (ctx) => {
     const message = ctx.message.text;
     const urls = parseURL(message);
-    if (urls[0]) {
-        try {
-            if (validator.isURL(urls[0])) {
-                const sendLinks = async () => {
-                    ctx.reply('🚬 Подождите немного, пока я ищу ссылки...');
-                    const data = await getData({ link: urls[0] });
-                    if (data) {
-                        let links = '';
-                        data.songlink.links.listen.forEach(item => {
-                            links = `${links}\n${item.name}\n${item.data.listenUrl}\n`;
-                        });
-                        ctx.reply(links);
-                        ctx.reply('👋 Готово!');
-                    } else {
-                        ctx.reply('😣 Кажется у меня нет данных по этой ссылке. Убедись, что адрес верный.');
-                    }
-                };
-                sendLinks();
-            } else {
-                ctx.reply('🤔 Я думаю, что это не ссылка...');
-            }
-        } catch (e) {
-            console.error('Link validation error');
+    try {
+        if (validator.isURL(urls[0])) {
+            const sendLinks = async () => {
+                ctx.reply('🚬 Подождите немного, пока я ищу ссылки...');
+                const data = await getData({ link: urls[0] });
+                if (data) {
+                    let links = '';
+                    data.songlink.links.listen.forEach(item => {
+                        links = `${links}\n${item.name}\n${item.data.listenUrl}\n`;
+                    });
+                    ctx.reply(links);
+                    ctx.reply('👋 Готово!');
+                } else {
+                    ctx.reply('😣 Кажется у меня нет данных по этой ссылке. Убедись, что адрес верный.');
+                }
+            };
+            sendLinks();
+        } else {
+            ctx.reply('🤔 Я думаю, что это не ссылка...');
         }
+    } catch (e) {
+        console.error('Link validation error');
     }
 });
 
