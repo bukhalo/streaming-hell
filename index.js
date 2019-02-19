@@ -15,6 +15,8 @@ const readableNames = {
     tidal: 'Tidal',
     napster: 'Napster',
     fanburst: 'Fanburst',
+    amazonMusic: 'Amazon Music',
+    soundcloud: 'SoundCloud'
 };
 const bot = new Telegraf(process.env.TOKEN);
 bot.start((ctx) => {
