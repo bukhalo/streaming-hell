@@ -36,13 +36,13 @@ bot.hears('тотален', ctx => ctx.reply('100% пидор'));
 
 bot.on('message', async ctx => {
   const message = ctx.message.text;
-  const urls = parseURL(message);
+  const urls = await parseURL(message);
   if (message) {
     try {
-      if (isURL(urls[0])) {
+      if (isURL(urls)) {
         const sendLinks = async () => {
           ctx.reply('🚬 Подождите немного, пока я ищу ссылки...');
-          const data = await getData({ link: urls[0] });
+          const data = await getData({ link: urls });
           if (data) {
             let links = '';
             data.songlink.links.listen.sort((a, b) => {
@@ -57,7 +57,8 @@ bot.on('message', async ctx => {
             });
             data.songlink.links.listen.forEach(item => {
               const name = readableNames[item.name] || item.name;
-              links = `${links}\n[${name}](${item.data.listenUrl})\n`;
+              links = `${links}\n*${name}*\n${item.data.listenUrl}\n`;
+              console.log()
             });
             ctx.reply(links, { parse_mode: 'markdown' });
             ctx.reply('👋 Готово!');
