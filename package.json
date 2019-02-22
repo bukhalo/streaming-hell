@@ -1,6 +1,6 @@
 {
   "name": "streaming-hell",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Telegram bot for share music with anyone no matter the platform",
   "keywords": [
     "telegram",
@@ -24,6 +24,7 @@
     "dotenv": "^6.2.0",
     "jsdom": "^13.2.0",
     "telegraf": "^3.27.1",
+    "telegraf-mixpanel": "^1.0.0",
     "validator": "^10.11.0"
   },
   "devDependencies": {
