@@ -19,7 +19,8 @@ const readableNames = {
   napster: 'Napster',
   fanburst: 'Fanburst',
   amazonMusic: 'Amazon Music',
-  soundcloud: 'SoundCloud'
+  soundcloud: 'SoundCloud',
+  spinrilla: 'Spinrilla'
 };
 
 bot.on('message', async ctx => {
@@ -45,15 +46,17 @@ bot.on('message', async ctx => {
               const nameB = readableNames[b.name] || b.name;
               if (nameA > nameB) {
                 return 1;
-              } else if (nameA < nameB) {
+              }
+              if (nameA < nameB) {
                 return -1;
               }
               return 0;
             });
             data.songlink.links.listen.forEach(item => {
               const name = readableNames[item.name] || item.name;
-              links = `${links}\n*${name}*\n${item.data.listenUrl}\n`;
-              console.log()
+              const url =
+                item.name !== 'youtubeMusic' ? item.data.listenUrl : item.data.listenAppUrl;
+              links = `${links}\n*${name}*\n[${url}](${url})`;
             });
 
             ctx.mixpanel.track('req', {

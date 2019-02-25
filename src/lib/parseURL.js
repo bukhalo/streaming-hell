@@ -6,10 +6,12 @@ async function shazamParse(url) {
     return !isNaN(one) && one !== '';
   });
   const template = `https://www.shazam.com/discovery/v4/ru/US/web/-/track/${id[0]}`;
-  let res = await axios(template)
-  if(!res.data) return '';
-  let result = res.data.hub.options.apple.openin.actions[0].uri ||
-    res.data.hub.options.spotify.openin.actions[0].uri || '';
+  const res = await axios(template);
+  if (!res.data) return '';
+  const result =
+    res.data.hub.options.apple.openin.actions[0].uri ||
+    res.data.hub.options.spotify.openin.actions[0].uri ||
+    '';
   return result;
 }
 
