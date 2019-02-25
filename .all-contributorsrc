@@ -1,0 +1,44 @@
+{
+  "projectName": "streaming-hell",
+  "projectOwner": "bukhalo",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Derik117",
+      "name": "Artyom Chebotarev",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/8479647?v=4",
+      "profile": "https://github.com/Derik117",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "tafler",
+      "name": "taffik",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/6934296?v=4",
+      "profile": "https://github.com/tafler",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "bukhalo",
+      "name": "Aleksandr",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/14031838?v=4",
+      "profile": "https://bukhalo.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "example",
+        "tutorial"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
