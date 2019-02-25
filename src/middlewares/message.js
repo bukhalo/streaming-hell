@@ -38,7 +38,9 @@ bot.on('message', async ctx => {
         const sendLinks = async () => {
           ctx.reply('🚬 Подождите немного, пока я ищу ссылки...');
           ctx.mixpanel.people.increment('req_cnt');
-          const data = await getData({ link: urls });
+          const data = await getData({
+            link: urls
+          });
           if (data) {
             let links = '';
             data.songlink.links.listen.sort((a, b) => {
@@ -56,7 +58,7 @@ bot.on('message', async ctx => {
               const name = readableNames[item.name] || item.name;
               const url =
                 item.name !== 'youtubeMusic' ? item.data.listenUrl : item.data.listenAppUrl;
-              links = `${links}\n*${name}*\n[${url}](${url})`;
+              links = `${links}\n*${name}*\n[${url}](${url})\n`;
             });
 
             ctx.mixpanel.track('req', {
@@ -66,10 +68,12 @@ bot.on('message', async ctx => {
               Type: data.songlink.type,
               AlbumType: data.songlink.albumType,
               Genre: data.songlink.genre,
-              URL: urls,
+              URL: urls
             });
 
-            ctx.reply(links, { parse_mode: 'markdown' });
+            ctx.reply(links, {
+              parse_mode: 'markdown'
+            });
             ctx.reply('👋 Готово!');
             ctx.mixpanel.people.increment('res_cnt');
           } else {
