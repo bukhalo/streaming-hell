@@ -1,27 +1,11 @@
 import Telegraf from 'telegraf';
 import isURL from 'validator/lib/isURL';
+import _ from 'lodash';
 
 import getData from 'lib/getData';
 import parseURL from 'lib/parseURL';
 
 const bot = new Telegraf(process.env.TOKEN);
-
-const readableNames = {
-  yandex: 'Yandex',
-  spotify: 'Spotify',
-  appleMusic: 'Apple Music',
-  youtubeMusic: 'YouTube Music',
-  youtube: 'YouTube',
-  pandora: 'Pandora',
-  google: 'Google',
-  deezer: 'Deezer',
-  tidal: 'Tidal',
-  napster: 'Napster',
-  fanburst: 'Fanburst',
-  amazonMusic: 'Amazon Music',
-  soundcloud: 'SoundCloud',
-  spinrilla: 'Spinrilla'
-};
 
 bot.on('message', async ctx => {
   ctx.mixpanel.people.set();
@@ -42,36 +26,23 @@ bot.on('message', async ctx => {
             link: urls
           });
           if (data) {
-            let links = '';
-            data.songlink.links.listen.sort((a, b) => {
-              const nameA = readableNames[a.name] || a.name;
-              const nameB = readableNames[b.name] || b.name;
-              if (nameA > nameB) {
-                return 1;
-              }
-              if (nameA < nameB) {
-                return -1;
-              }
-              return 0;
-            });
-            data.songlink.links.listen.forEach(item => {
-              const name = readableNames[item.name] || item.name;
-              const url =
-                item.name !== 'youtubeMusic' ? item.data.listenUrl : item.data.listenAppUrl;
-              links = `${links}\n*${name}*\n[${url}](${url})\n`;
-            });
-
             ctx.mixpanel.track('req', {
               Artist: data.songlink.artistName,
               Title: data.songlink.title,
               Provider: data.songlink.provider,
               Type: data.songlink.type,
-              AlbumType: data.songlink.albumType,
               Genre: data.songlink.genre,
               URL: urls
             });
 
-            ctx.reply(links, {
+            const result = _.chain(data.songlink.nodesByUniqueId)
+              .filter(item => item.sectionNodeUniqueId === 'AUTOMATED_SECTION::LISTEN' && item.url)
+              .sortBy('displayName')
+              .map(item => `*${item.displayName}*\n[${item.url}](${item.url})\n\n`)
+              .value()
+              .join('');
+
+            ctx.reply(result, {
               parse_mode: 'markdown'
             });
             ctx.reply('👋 Готово!');
