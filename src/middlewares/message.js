@@ -62,7 +62,8 @@ bot.on('message', async ctx => {
         ctx.mixpanel.people.increment('msg_not_link_cnt');
       }
     } catch (e) {
-      console.error('Link validation error');
+      ctx.reply('🤔 Я думаю, что это не ссылка...');
+      ctx.mixpanel.people.increment('msg_not_link_cnt');
     }
   }
 });

@@ -17,9 +17,11 @@ async function shazamParse(url) {
 
 export default async text => {
   const regexp = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g;
-  const answer = text.match(regexp);
-  if (answer && answer[0] && answer[0].match(/shazam/)) {
-    return shazamParse(answer[0]);
+  if (regexp.test(text)) {
+    const answer = text.match(regexp);
+    if (answer && answer[0] && answer[0].match(/shazam/)) {
+      return shazamParse(answer[0]);
+    }
+    return answer ? answer[0] : '';
   }
-  return answer ? answer[0] : '';
 };
