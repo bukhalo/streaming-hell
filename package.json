@@ -24,6 +24,7 @@
     "dotenv": "^6.2.0",
     "jsdom": "^13.2.0",
     "lodash": "^4.17.11",
+    "node-vk-bot-api": "^2.4.10",
     "telegraf": "^3.27.1",
     "telegraf-mixpanel": "^1.0.0",
     "validator": "^10.11.0"
