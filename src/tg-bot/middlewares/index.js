@@ -1,10 +1,10 @@
 import Telegraf from 'telegraf';
-import botCatch from 'middlewares/catch';
-import mixpanel from 'middlewares/mixpanel';
-import start from 'middlewares/start';
-import help from 'middlewares/help';
-import heares from 'middlewares/heares';
-import message from 'middlewares/message';
+import botCatch from './catch';
+import mixpanel from './mixpanel';
+import start from './start';
+import help from './help';
+import heares from './heares';
+import message from './message';
 
 const bot = new Telegraf(process.env.TOKEN);
 
