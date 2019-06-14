@@ -28,6 +28,7 @@
     "lodash": "^4.17.11",
     "merge-graphql-schemas": "^1.5.8",
     "node-vk-bot-api": "^2.4.10",
+    "spotify-web-api-node": "^4.0.0",
     "telegraf": "^3.27.1",
     "telegraf-mixpanel": "^1.0.0",
     "validator": "^10.11.0"

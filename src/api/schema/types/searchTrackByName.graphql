@@ -1,0 +1,3 @@
+type Query {
+  searchTrackByName(name: String): JSONObject
+}
