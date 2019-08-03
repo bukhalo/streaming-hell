@@ -1,4 +1,4 @@
-import Telegraf from 'telegraf';
+import Telegraf, { Extra } from 'telegraf';
 import isURL from 'validator/lib/isURL';
 import _ from 'lodash';
 
@@ -42,10 +42,23 @@ bot.on('message', async ctx => {
               .value()
               .join('');
 
-            ctx.reply(result, {
-              parse_mode: 'markdown'
+            await ctx.replyWithPhoto(
+              {
+                url: data.songlink.thumbnailUrl,
+                disable_notification: true
+              },
+              Extra.load({
+                caption: `${data.songlink.artistName} – ${data.songlink.title}`
+              }).markdown()
+            );
+            await ctx.reply(result, {
+              parse_mode: 'markdown',
+              disable_web_page_preview: true,
+              disable_notification: true
             });
-            ctx.reply('👋 Готово!');
+            ctx.reply('👋 Готово!', {
+              disable_notification: true
+            });
             ctx.mixpanel.people.increment('res_cnt');
           } else {
             ctx.reply('😣 Кажется у меня нет данных по этой ссылке. Убедись, что адрес верный.');
