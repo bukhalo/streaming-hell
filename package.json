@@ -31,7 +31,7 @@
     "spotify-web-api-node": "^4.0.0",
     "telegraf": "^3.27.1",
     "telegraf-mixpanel": "^1.0.0",
-    "validator": "^10.11.0"
+    "validator": "^11.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
