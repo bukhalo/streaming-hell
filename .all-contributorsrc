@@ -38,6 +38,15 @@
         "example",
         "tutorial"
       ]
+    },
+    {
+      "login": "ekzotech",
+      "name": "Berbeka Anatoly",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/785298?v=4",
+      "profile": "http://ekzotech.org",
+      "contributions": [
+        "financial"
+      ]
     }
   ],
   "contributorsPerLine": 7
