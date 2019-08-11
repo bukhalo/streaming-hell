@@ -2,8 +2,8 @@ import Telegraf, { Extra } from 'telegraf';
 import isURL from 'validator/lib/isURL';
 import _ from 'lodash';
 
-import getData from 'lib/getData';
-import parseURL from 'lib/parseURL';
+import getData from '../lib/getData';
+import parseURL from '../lib/parseURL';
 
 const bot = new Telegraf(process.env.TOKEN);
 

@@ -1,4 +1,7 @@
 import 'dotenv/config';
-// import './api/server';
-import 'tg-bot';
-import 'vk-bot';
+import Telegraf from 'telegraf';
+import middlewares from './middlewares';
+
+const bot = new Telegraf(process.env.TOKEN);
+bot.use(middlewares);
+bot.launch();
