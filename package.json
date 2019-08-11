@@ -1,5 +1,5 @@
 {
-  "name": "streaming-hell",
+  "name": "@streaming-hell/telegram-bot",
   "version": "0.2.2",
   "description": "Telegram bot for share music with anyone no matter the platform",
   "keywords": [
@@ -7,9 +7,9 @@
     "telegram bot",
     "telegraf"
   ],
-  "homepage": "https://github.com/bukhalo/streaming-hell#readme",
+  "homepage": "https://github.com/streaming-hell/telegram-bot#readme",
   "bugs": {
-    "url": "https://github.com/bukhalo/streaming-hell/issues",
+    "url": "https://github.com/streaming-hell/telegram-bot/issues",
     "email": "aleksandr@bukhalo.com"
   },
   "license": "GPL-3.0",

@@ -5,7 +5,7 @@ workflow "Build and Publish" {
 
 action "Build" {
   uses = "actions/docker/cli@master"
-  args = "build -t bukhalo/streaming-hell ."
+  args = "build -t streaminghell/telegram-bot ."
 }
 
 action "Publish Filter" {
@@ -26,5 +26,5 @@ action "Login" {
 action "Publish" {
   needs = ["Login"]
   uses = "actions/docker/cli@master"
-  args = "push bukhalo/streaming-hell"
+  args = "push streaminghell/telegram-bot"
 }
