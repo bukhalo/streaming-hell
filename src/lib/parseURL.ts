@@ -1,7 +1,9 @@
 const axios = require('axios');
 
+// @ts-ignore
 async function shazamParse(url) {
   if (!url) return false;
+  // @ts-ignore
   const id = url.split('/').filter(one => {
     return !isNaN(one) && one !== '';
   });
@@ -15,6 +17,7 @@ async function shazamParse(url) {
   return result;
 }
 
+// @ts-ignore
 export default async text => {
   const regexp = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g;
   if (regexp.test(text)) {

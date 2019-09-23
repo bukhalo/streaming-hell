@@ -22,6 +22,6 @@ WORKDIR /app
 ADD package.json ./
 
 COPY --from=builder ./app/node_modules ./node_modules/
-COPY --from=builder ./app/dist ./
+COPY --from=builder ./app/dist ./dist
 
-CMD ["node", "index.js"]
+CMD ["node", "dist/main.js"]

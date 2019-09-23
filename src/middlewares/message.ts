@@ -1,12 +1,15 @@
 import Telegraf, { Extra } from 'telegraf';
+// @ts-ignore
 import isURL from 'validator/lib/isURL';
 import _ from 'lodash';
 
 import getData from '../lib/getData';
 import parseURL from '../lib/parseURL';
 
+// @ts-ignore
 const bot = new Telegraf(process.env.TOKEN);
 
+// @ts-ignore
 bot.on('message', async ctx => {
   ctx.mixpanel.people.set();
   ctx.mixpanel.people.increment('msg_cnt');

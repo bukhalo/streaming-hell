@@ -1,6 +1,8 @@
 import axios from 'axios';
+// @ts-ignore
 import jsdom from 'jsdom';
 
+// @ts-ignore
 const getData = async ({ link }) => {
   try {
     // get song.link page

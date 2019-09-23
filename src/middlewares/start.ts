@@ -1,7 +1,9 @@
 import Telegraf from 'telegraf';
 
+// @ts-ignore
 const bot = new Telegraf(process.env.TOKEN);
 
+// @ts-ignore
 bot.start(ctx => {
   ctx.mixpanel.people.set({
     $created: new Date().toISOString()

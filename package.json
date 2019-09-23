@@ -15,9 +15,9 @@
   "license": "GPL-3.0",
   "main": "index.js",
   "scripts": {
-    "start": "yarn build && NODE_ENV=production node dist/index.js",
-    "build": "rm -rf ./dist && NODE_ENV=production babel ./src -d dist",
-    "dev": "NODE_ENV=development nodemon --exec babel-node --inspect src/index.js",
+    "start": "yarn build && NODE_ENV=prod node dist/main.js",
+    "build": "rm -rf ./dist && NODE_ENV=prod babel ./src -d dist --extensions '.ts'",
+    "dev": "NODE_ENV=dev nodemon --exec babel-node --extensions '.ts' --inspect src/main.ts",
     "deploy": "env-cmd serverless deploy"
   },
   "dependencies": {
@@ -33,7 +33,14 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.3",
     "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-proposal-optional-chaining": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-typescript": "^7.6.0",
+    "@types/aws-lambda": "^8.10.31",
+    "@typescript-eslint/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^2.3.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "env-cmd": "^10.0.1",
     "eslint": "5.16.0",
@@ -44,6 +51,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "nodemon": "^1.18.10",
     "prettier": "^1.16.4",
-    "serverless": "^1.52.2"
+    "serverless": "^1.52.2",
+    "typescript": "^3.6.3"
   }
 }

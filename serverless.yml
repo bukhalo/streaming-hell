@@ -15,7 +15,7 @@ package:
     - src/**
 functions:
   main:
-    handler: dist/index.handler
+    handler: dist/main.handler
     events:
       - http:
           path: webhook
