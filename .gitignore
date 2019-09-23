@@ -1,2 +1,5 @@
 /dist
 .env
+
+# Serverless directories
+.serverless
