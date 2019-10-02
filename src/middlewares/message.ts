@@ -39,9 +39,15 @@ bot.on('message', async ctx => {
             });
 
             const result = _.chain(data.songlink.nodesByUniqueId)
-              .filter(item => item.sectionNodeUniqueId === 'AUTOMATED_SECTION::LISTEN' && item.url)
+              .filter(
+                item =>
+                  item.sectionNodeUniqueId === 'AUTOMATED_SECTION::LISTEN' &&
+                  item.url,
+              )
               .sortBy('displayName')
-              .map(item => `*${item.displayName}*\n[${item.url}](${item.url})\n\n`)
+              .map(
+                item => `*${item.displayName}*\n[${item.url}](${item.url})\n\n`,
+              )
               .value()
               .join('');
 
@@ -64,7 +70,9 @@ bot.on('message', async ctx => {
             });
             ctx.mixpanel.people.increment('res_cnt');
           } else {
-            ctx.reply('😣 Кажется у меня нет данных по этой ссылке. Убедись, что адрес верный.');
+            ctx.reply(
+              '😣 Кажется у меня нет данных по этой ссылке. Убедись, что адрес верный.',
+            );
             ctx.mixpanel.people.increment('res_cnt');
             ctx.mixpanel.people.increment('res_no_data_cnt');
             ctx.mixpanel.track('', {

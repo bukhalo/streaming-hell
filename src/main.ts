@@ -11,7 +11,11 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 /* AWS Lambda handler function */
-export const handler = (event: APIGatewayEvent, context: Context, callback: Callback): void => {
+export const handler = (
+  event: APIGatewayEvent,
+  context: Context,
+  callback: Callback,
+): void => {
   if (event.body && typeof event.body === 'string') {
     bot.handleUpdate(JSON.parse(event.body));
     return callback(null, {

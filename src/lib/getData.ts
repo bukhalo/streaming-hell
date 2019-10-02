@@ -14,7 +14,8 @@ const getData = async ({ link }) => {
 
     // parse dom & find json with data on page
     const dom = new jsdom.JSDOM(req.data);
-    const jsonData = dom.window.document.getElementById('initialState').innerHTML;
+    const jsonData = dom.window.document.getElementById('initialState')
+      .innerHTML;
 
     // return object with data
     return JSON.parse(jsonData);
