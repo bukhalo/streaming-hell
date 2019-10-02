@@ -11,9 +11,7 @@ async function shazamParse(url) {
   const res = await axios(template);
   if (!res.data) return '';
   const result =
-    res.data.hub.options.apple.openin.actions[0].uri ||
-    res.data.hub.options.spotify.openin.actions[0].uri ||
-    '';
+    res.data.hub.options.apple.openin.actions[0].uri || res.data.hub.options.spotify.openin.actions[0].uri || '';
   return result;
 }
 

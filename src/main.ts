@@ -16,12 +16,12 @@ export const handler = (event: APIGatewayEvent, context: Context, callback: Call
     bot.handleUpdate(JSON.parse(event.body));
     return callback(null, {
       statusCode: 200,
-      body: ''
+      body: '',
     });
   }
   return callback(null, {
     statusCode: 400,
-    body: 'Empty request payload'
+    body: 'Empty request payload',
   });
 };
 

@@ -38,6 +38,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-typescript": "^7.6.0",
+    "@robotmafia-team/prettier-config": "^0.1.1",
     "@types/aws-lambda": "^8.10.31",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.3.0",
@@ -53,5 +54,6 @@
     "prettier": "^1.16.4",
     "serverless": "^1.52.2",
     "typescript": "^3.6.3"
-  }
+  },
+  "prettier": "@robotmafia-team/prettier-config"
 }

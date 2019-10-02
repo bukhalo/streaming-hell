@@ -14,7 +14,7 @@ bot.on('message', async ctx => {
   ctx.mixpanel.people.set();
   ctx.mixpanel.people.increment('msg_cnt');
   ctx.mixpanel.track('msg', {
-    text: ctx.message.text
+    text: ctx.message.text,
   });
 
   const message = ctx.message.text;
@@ -26,7 +26,7 @@ bot.on('message', async ctx => {
           ctx.reply('🚬 Подождите немного, пока я ищу ссылки...');
           ctx.mixpanel.people.increment('req_cnt');
           const data = await getData({
-            link: urls
+            link: urls,
           });
           if (data) {
             ctx.mixpanel.track('req', {
@@ -35,7 +35,7 @@ bot.on('message', async ctx => {
               Provider: data.songlink.provider,
               Type: data.songlink.type,
               Genre: data.songlink.genre,
-              URL: urls
+              URL: urls,
             });
 
             const result = _.chain(data.songlink.nodesByUniqueId)
@@ -48,19 +48,19 @@ bot.on('message', async ctx => {
             await ctx.replyWithPhoto(
               {
                 url: data.songlink.thumbnailUrl,
-                disable_notification: true
+                disable_notification: true,
               },
               Extra.load({
-                caption: `${data.songlink.artistName} – ${data.songlink.title}`
-              }).markdown()
+                caption: `${data.songlink.artistName} – ${data.songlink.title}`,
+              }).markdown(),
             );
             await ctx.reply(result, {
               parse_mode: 'markdown',
               disable_web_page_preview: true,
-              disable_notification: true
+              disable_notification: true,
             });
             ctx.reply('👋 Готово!', {
-              disable_notification: true
+              disable_notification: true,
             });
             ctx.mixpanel.people.increment('res_cnt');
           } else {
@@ -68,7 +68,7 @@ bot.on('message', async ctx => {
             ctx.mixpanel.people.increment('res_cnt');
             ctx.mixpanel.people.increment('res_no_data_cnt');
             ctx.mixpanel.track('', {
-              URL: urls
+              URL: urls,
             });
           }
         };
@@ -79,7 +79,7 @@ bot.on('message', async ctx => {
       }
     } catch (e) {
       ctx.reply(
-        'Поделись со мной ссылкой на трек или альбом из любого приложения, а я в ответ пришлю ссылки, на все музыкальные сервисы где можно найти этот альбом или композицию.'
+        'Поделись со мной ссылкой на трек или альбом из любого приложения, а я в ответ пришлю ссылки, на все музыкальные сервисы где можно найти этот альбом или композицию.',
       );
       ctx.mixpanel.people.increment('msg_not_link_cnt');
     }

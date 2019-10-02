@@ -9,7 +9,7 @@ const getData = async ({ link }) => {
     const req = await axios(`https://song.link/${link}`, {
       maxRedirects: 20,
       timeout: 100000,
-      maxContentLength: 50000000
+      maxContentLength: 50000000,
     });
 
     // parse dom & find json with data on page
