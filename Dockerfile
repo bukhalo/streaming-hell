@@ -1,27 +1,32 @@
+# Build dist folder step
 FROM node:12-alpine as builder
-
 WORKDIR /app
 
-RUN apk add --no-cache curl git && cd /tmp && \
-    curl -#L https://github.com/tj/node-prune/releases/download/v1.0.1/node-prune_1.0.1_linux_amd64.tar.gz | tar -xvzf- && \
-    mv -v node-prune /usr/local/bin && rm -rvf * && \
-    echo "yarn cache clean && node-prune" > /usr/local/bin/node-clean && chmod +x /usr/local/bin/node-clean
-
-ADD package.json ./
-RUN yarn --frozen-lockfile --non-interactive
+ARG NPM_AUTH_TOKEN
+RUN echo $NPM_AUTH_TOKEN
+RUN npm set //npm.pkg.github.com/:_authToken $NPM_AUTH_TOKEN
+ADD .npmrc package.json package-lock.json ./
+RUN npm ci
 ADD . ./
-RUN yarn build
+RUN npm run build
 
+# Install dependecies (production only) stage
+FROM node:12-alpine as deps
+WORKDIR /app
 ENV NODE_ENV=production
-RUN yarn --frozen-lockfile --non-interactive --production && node-clean
 
+COPY --from=builder ./app/.npmrc ./
+
+ADD package.json package-lock.json ./
+RUN npm ci
+
+# Final stage
 FROM node:12-alpine
-
 WORKDIR /app
 
 ADD package.json ./
 
-COPY --from=builder ./app/node_modules ./node_modules/
-COPY --from=builder ./app/dist ./dist
+COPY --from=builder ./app/dist ./dist/
+COPY --from=deps ./app/node_modules ./node_modules/
 
-CMD ["node", "dist/main.js"]
+CMD ["npm", "run", "start"]

@@ -1,0 +1,66 @@
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker image
+      run: |
+        APP_VERSION=$(sed -nE 's/^\s*"version": "(.*?)",$/\1/p' package.json)
+        docker build . \
+            --file Dockerfile \
+            --tag docker.pkg.github.com/streaming-hell/telegram-bot/streaming-hell-telegram-bot:$APP_VERSION \
+            --build-arg NPM_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
+        docker images    
+    - name: Push Docker image into GitHub Package Registry
+      run: |
+        docker images
+        APP_VERSION=$(sed -nE 's/^\s*"version": "(.*?)",$/\1/p' package.json)
+        docker login docker.pkg.github.com -u bukhalo -p ${{ secrets.GITHUB_TOKEN }}
+        docker push docker.pkg.github.com/streaming-hell/telegram-bot/streaming-hell-telegram-bot:$APP_VERSION
+  Deploy_to_production:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Add SSH key for remote server
+      uses: webfactory/ssh-agent@v0.1.1
+      with:
+        ssh-private-key: ${{ secrets.PRODUCTION_SERVER_SSH_PRIVATE_KEY }}
+    
+    - name: Set remote Docker host
+      run: export DOCKER_HOST="ssh://${{ secrets.PRODUCTION_SERVER_USER }}@${{ secrets.PRODUCTION_SERVER_HOST }}"
+    
+    - name: Login into GitHub Package Registry
+      run: docker login docker.pkg.github.com -u bukhalo -p ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v1
+      with:
+        private-key: ${{ secrets.PRODUCTION_SERVER_SSH_PRIVATE_KEY }}
+
+    - name: Install packages
+      run: sudo apt install openssh-client
+    
+    - name: Pull Docker image from registry  
+      run: |
+        ls -la /home/runner/.ssh
+        ssh -T ${{ secrets.PRODUCTION_SERVER_USER }}@${{ secrets.PRODUCTION_SERVER_HOST }}
+        # echo ${{ secrets.PRODUCTION_SERVER_SSH_PRIVATE_KEY }} > ~/.ssh/id_rsa
+        # chmod 600 ~/.ssh/id_rsa
+        # export DOCKER_HOST="ssh://${{ secrets.PRODUCTION_SERVER_USER }}@${{ secrets.PRODUCTION_SERVER_HOST }}"
+        # APP_VERSION=$(sed -nE 's/^\s*"version": "(.*?)",$/\1/p' package.json)
+        # docker pull docker.pkg.github.com/streaming-hell/telegram-bot/streaming-hell-telegram-bot:$APP_VERSION
+        
+    - name: Run container from image 
+      run: |
+        docker images
+        APP_VERSION=$(sed -nE 's/^\s*"version": "(.*?)",$/\1/p' package.json)
+        docker run \
+          -d \
+          --net host \
+          -e TELEGRAM_BOT_TOKEN_PRODUCTION=$TELEGRAM_BOT_TOKEN_PRODUCTION
+          docker.pkg.github.com/streaming-hell/telegram-bot/streaming-hell-telegram-bot:$APP_VERSION

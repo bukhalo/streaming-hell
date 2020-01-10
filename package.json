@@ -1,6 +1,6 @@
 {
   "name": "@streaming-hell/telegram-bot",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Telegram bot for share music with anyone no matter the platform",
   "keywords": [
     "telegram",
@@ -15,45 +15,29 @@
   "license": "GPL-3.0",
   "main": "index.js",
   "scripts": {
-    "start": "yarn build && NODE_ENV=prod node dist/main.js",
-    "build": "rm -rf ./dist && NODE_ENV=prod babel ./src -d dist --extensions '.ts'",
+    "start": "NODE_ENV=prod node dist/main.js",
+    "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
+    "build": "rm -rf ./dist && NODE_ENV=production tsc",
     "dev": "NODE_ENV=dev nodemon --exec babel-node --extensions '.ts' --inspect src/main.ts",
-    "deploy": "env-cmd serverless deploy"
+    "deploy": "env-cmd serverless deploy",
+    "docker:build": "docker build -t streaming-hell-telegram-bot:$npm_package_version --build-arg NPM_AUTH_TOKEN=9935ad72403ae4eb6a48c3519592164931f506c5 .",
+    "docker:run": "docker run -it --rm -e TELEGRAM_BOT_TOKEN=***REMOVED*** -e MIXPANEL_TOKEN=***REMOVED*** -e ODESLY_API_KEY=***REMOVED*** streaming-hell-telegram-bot:0.2.3"
   },
   "dependencies": {
     "axios": "^0.19.0",
     "dotenv": "^8.1.0",
-    "jsdom": "^15.1.1",
     "lodash": "^4.17.11",
-    "telegraf": "^3.27.1",
+    "telegraf": "^3.33.3",
     "telegraf-mixpanel": "^1.0.0",
     "validator": "^11.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.0",
-    "@babel/core": "^7.6.0",
-    "@babel/node": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/plugin-proposal-optional-chaining": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/preset-typescript": "^7.6.0",
     "@robotmafia-team/prettier-config": "^0.1.2",
-    "@types/aws-lambda": "^8.10.31",
-    "@typescript-eslint/eslint-plugin": "^2.3.0",
-    "@typescript-eslint/parser": "^2.3.0",
-    "babel-plugin-module-resolver": "^3.2.0",
-    "env-cmd": "^10.0.1",
-    "eslint": "5.16.0",
-    "eslint-config-airbnb-base": "14.0.0",
-    "eslint-config-prettier": "^6.3.0",
-    "eslint-import-resolver-babel-module": "^5.0.1",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-prettier": "^3.1.1",
-    "nodemon": "^1.19.2",
+    "@types/lodash": "^4.14.148",
+    "@types/validator": "^10.11.3",
     "prettier": "^1.16.4",
-    "serverless": "^1.52.2",
-    "typescript": "^3.6.3"
+    "tsc-watch": "^4.0.0",
+    "typescript": "^3.7.2"
   },
   "prettier": "@robotmafia-team/prettier-config"
 }

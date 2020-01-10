@@ -1,5 +1,3 @@
 /dist
 .env
-
-# Serverless directories
-.serverless
+node_modules/

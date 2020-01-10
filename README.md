@@ -6,7 +6,7 @@ Telegram bot for share music with anyone no matter the platform
 ## Install
 ```bash
 # clone repository
-git@github.com:bukhalo/streaming-hell.git
+git clone git@github.com:streaming-hell/telegram-bot.git
 ```
 
 ## Usage
