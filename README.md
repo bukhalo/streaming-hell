@@ -1,26 +1,13 @@
-# [Streaming Hell](https://teleg.run/streaminghell_bot)
+# Streaming Hell
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 
-Telegram bot for share music with anyone no matter the platform
+Open Source services for musical streaming platforms
 
 ## Install
-```bash
-# clone repository
-git clone git@github.com:streaming-hell/telegram-bot.git
-```
+WIP
 
 ## Usage
-Create a .env file in the root directory of your project. Add `TOKEN` environment variable on new line in the form of `NAME=VALUE`. For example:
-```http request
-TOKEN=143544347:AABL4pyT74VFGRO5iO8h_r1PTZpNwO4JqPn
-```
-> You can get own token from @BotFather in Telegram
-
-And run bot:
-```bash
-yarn start
-```
-That's it.
+WIP
 
 ## Contributors
 
