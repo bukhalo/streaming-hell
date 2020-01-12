@@ -1,5 +1,9 @@
-import 'dotenv/config';
-import Bot from './bot'
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
 
-const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN as string)
-bot.launch();
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  await app.listen(3000);
+}
+
+bootstrap();

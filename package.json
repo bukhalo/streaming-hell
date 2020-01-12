@@ -39,13 +39,15 @@
     "graphql": "^14.5.8",
     "graphql-type-json": "^0.3.1",
     "lodash": "^4.17.15",
+    "nestjs-telegraf": "^0.6.0",
     "node-vk-bot-api": "^3.2.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
     "spotify-web-api-node": "^4.0.0",
     "telegraf": "^3.35.0",
-    "type-graphql": "^0.17.6"
+    "type-graphql": "^0.17.6",
+    "typescript-param-validator": "^1.1.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.9.0",
@@ -79,7 +81,12 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/apps/"
-    ]
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "@app/odesly/(.*)": "<rootDir>/libs/odesly/src/$1",
+      "@app/odesly": "<rootDir>/libs/odesly/src"
+    }
   }
 }
