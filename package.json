@@ -27,7 +27,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./apps/nest/test/jest-e2e.json"
+    "test:e2e": "jest --config ./apps/nest/test/jest-e2e.json",
+    "docker:build:telegram-bot": "docker build -t streaming-hell-telegram-bot:$npm_package_version --no-cache -f Dockerfile.telegram-bot .",
+    "docker:archive:telegram-bot": "docker save streaming-hell-telegram-bot:$npm_package_version > docker/streaming-hell-telegram-bot-$npm_package_version.tar"
   },
   "dependencies": {
     "@nestjs/common": "^6.7.2",
