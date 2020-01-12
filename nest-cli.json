@@ -43,6 +43,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/api/tsconfig.app.json"
       }
+    },
+    "odesly": {
+      "type": "library",
+      "root": "libs/odesly",
+      "entryFile": "index",
+      "sourceRoot": "libs/odesly/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/odesly/tsconfig.lib.json"
+      }
     }
   }
 }

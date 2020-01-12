@@ -1,14 +1,20 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { LinksService } from './links.service';
+import { OdeslyService } from '@app/odesly';
+import { Observable } from 'rxjs';
+import { LinksByEntityQuery } from './queries/links-by-entity.query';
+import { LinksByUrlQuery } from './queries/links-by-url.query';
 
-@Controller('api/links')
+@Controller('links')
 export class LinksController {
-  constructor(private readonly linksSerivce: LinksService) {}
+  constructor(private readonly odeslyService: OdeslyService) {}
+
+  @Get('byEntity')
+  byEntity(@Query() query: LinksByEntityQuery): Observable<any> {
+    return this.odeslyService.links(query);
+  }
 
   @Get('byUrl')
-  async linksByUrl(@Query() query: any) {
-    // @ts-ignore
-    const req = await this.linksSerivce.getLinks(query.url);
-    return req.data;
+  byUrl(@Query() query: LinksByUrlQuery) {
+    return this.odeslyService.links(query);
   }
 }

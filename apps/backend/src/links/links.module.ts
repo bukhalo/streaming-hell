@@ -1,12 +1,9 @@
 import { Module } from '@nestjs/common';
-import { SonglinkModule } from '../songlink/songlink.module';
-import { LinksService } from './links.service';
-import { LinksResolver } from './links.resolver';
+import { OdeslyModule } from '@app/odesly';
 import { LinksController } from './links.controller';
 
 @Module({
-  imports: [SonglinkModule],
-  providers: [LinksService, LinksResolver],
-  controllers: [LinksController]
+  imports: [OdeslyModule],
+  controllers: [LinksController],
 })
 export class LinksModule {}

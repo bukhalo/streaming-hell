@@ -1,6 +1,6 @@
 {
   "name": "@streaming-hell/streaming-hell",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Telegram bot for share music with anyone no matter the platform",
   "keywords": [
     "telegram",
@@ -27,7 +27,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./apps/nest/test/jest-e2e.json"
+    "test:e2e": "jest --config ./apps/nest/test/jest-e2e.json",
+    "docker:build:telegram-bot": "docker build -t streaming-hell-telegram-bot:$npm_package_version --no-cache -f Dockerfile.telegram-bot .",
+    "docker:archive:telegram-bot": "docker save streaming-hell-telegram-bot:$npm_package_version > docker/streaming-hell-telegram-bot-$npm_package_version.tar"
   },
   "dependencies": {
     "@nestjs/common": "^6.7.2",
@@ -39,13 +41,15 @@
     "graphql": "^14.5.8",
     "graphql-type-json": "^0.3.1",
     "lodash": "^4.17.15",
+    "nestjs-telegraf": "^0.6.0",
     "node-vk-bot-api": "^3.2.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
     "spotify-web-api-node": "^4.0.0",
     "telegraf": "^3.35.0",
-    "type-graphql": "^0.17.6"
+    "type-graphql": "^0.17.6",
+    "typescript-param-validator": "^1.1.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.9.0",
@@ -79,7 +83,12 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/apps/"
-    ]
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "@app/odesly/(.*)": "<rootDir>/libs/odesly/src/$1",
+      "@app/odesly": "<rootDir>/libs/odesly/src"
+    }
   }
 }
