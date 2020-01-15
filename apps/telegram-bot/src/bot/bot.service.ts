@@ -184,6 +184,12 @@ export class BotService {
 
     let links: string[] = [];
 
+    /*
+     ** Make sure it's a PM.
+     ** https://github.com/streaming-hell/streaming-hell/issues/9#issuecomment-573243323
+     */
+    if (message.chat.type !== 'private') return;
+
     /* Check message text exist in Telegraf context */
     if (!message.text) {
       throw new HttpException('No text in message', HttpStatus.BAD_REQUEST);
