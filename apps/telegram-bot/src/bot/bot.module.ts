@@ -1,4 +1,4 @@
-import { Module, OnModuleInit, HttpModule } from '@nestjs/common';
+import { Module, OnModuleInit, HttpModule, Logger } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { TelegrafModule, TelegrafService } from 'nestjs-telegraf';
@@ -15,7 +15,7 @@ import { OdeslyModule } from '@app/odesly';
       imports: [ConfigModule.forFeature(botConfig)],
       useClass: TelegrafConfigService,
     }),
-    OdeslyModule
+    OdeslyModule,
   ],
   providers: [BotService],
 })
@@ -25,8 +25,13 @@ export class BotModule implements OnModuleInit {
     private readonly telegrafService: TelegrafService,
   ) {}
 
+  logger = new Logger('Bot');
+
   onModuleInit() {
     this.telegrafService.init(this.moduleRef);
+    this.telegrafService.bot.catch((err, ctx) => {
+      Logger.error(`Ooops, encountered an error for ${ctx.updateType}`, err);
+    });
     this.telegrafService.startPolling();
   }
 }
