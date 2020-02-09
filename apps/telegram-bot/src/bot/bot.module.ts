@@ -6,6 +6,7 @@ import botConfig from './bot.config';
 import { TelegrafConfigService } from './telegraf-config.service';
 import { BotService } from './bot.service';
 import { OdeslyModule } from '@app/odesly';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { OdeslyModule } from '@app/odesly';
       imports: [ConfigModule.forFeature(botConfig)],
       useClass: TelegrafConfigService,
     }),
+    UsersModule,
     OdeslyModule,
   ],
   providers: [BotService],
