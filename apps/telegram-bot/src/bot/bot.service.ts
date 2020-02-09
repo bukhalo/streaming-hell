@@ -13,6 +13,7 @@ import {
 } from 'nestjs-telegraf';
 import { ContextMessageUpdate, Extra } from 'telegraf';
 import { chain, map, sortBy } from 'lodash';
+import { UsersService } from '../users/users.service';
 
 type OdeslyPlatforms =
   | 'spotify'
@@ -68,6 +69,7 @@ export class BotService {
     private readonly configService: ConfigService,
     private readonly telegrafTelegramService: TelegrafTelegramService,
     private readonly odeslyService: OdeslyService,
+    private readonly usersService: UsersService,
   ) {}
 
   /* Reply with links to other streaming services */
@@ -180,6 +182,8 @@ export class BotService {
 
   @TelegramActionHandler({ message: RegExp('') })
   async onMessage(ctx: ContextMessageUpdate) {
+    this.user(ctx);
+
     const { message } = ctx;
 
     let links: string[] = [];
@@ -233,6 +237,34 @@ export class BotService {
           this.logger.error(err.response.data);
         }
       }
+    }
+  }
+
+  async user(ctx: ContextMessageUpdate) {
+    const {
+      id,
+      is_bot,
+      first_name,
+      last_name,
+      username,
+      language_code,
+    } = ctx.message.from;
+
+    // get user by telegram user id
+    const findedUser = await this.usersService.findByTelegramUserID(id);
+
+    // save user in DB if not exist
+    if (!findedUser) {
+      await this.usersService.create({
+        telegram: {
+          userID: id,
+          isBot: is_bot,
+          firstName: first_name,
+          lastName: last_name,
+          username,
+          languageCode: language_code,
+        },
+      });
     }
   }
 }
