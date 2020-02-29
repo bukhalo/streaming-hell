@@ -6,6 +6,7 @@ export const VALIDATION_SCHEMA: Schema = object({
     .valid(ALLOWED_ENV.toString())
     .default(DEFAULT_ENV),
   PORT: number().default(3000),
+  SENTRY_DSN: string().required(),
   MONGODB_URI: string().required(),
   ODESLI_API_KEY: string().required(),
 });
