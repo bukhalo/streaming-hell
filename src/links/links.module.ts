@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { OdeslyModule } from '../odesly/odesly.module';
+import { OdesliModule } from '../odesli/odesli.module';
 import { LinksController } from './links.controller';
 
 @Module({
-  imports: [OdeslyModule],
+  imports: [OdesliModule],
   controllers: [LinksController],
 })
 export class LinksModule {}

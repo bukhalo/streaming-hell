@@ -12,14 +12,14 @@ import { map, catchError } from 'rxjs/operators';
 import { LinksParams } from './params/links.params';
 
 @Injectable()
-export class OdeslyService {
+export class OdesliService {
   constructor(
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,
   ) {}
 
   /*
-   ** Validate odesly.co API request parameters
+   ** Validate odesli.co API request parameters
    ** Doc: https://github.com/songlink/docs/blob/master/api-v1-alpha.1.md#query-params
    */
   private validateRequestParams(params: LinksParams) {
@@ -29,7 +29,7 @@ export class OdeslyService {
       Logger.error(
         'URL or Platform + Type + ID parameters required!',
         JSON.stringify(params),
-        'ODESLY',
+        'ODESLI',
       );
       throw new HttpException(
         'URL or Platform + Type + ID parameters required!',
@@ -39,7 +39,7 @@ export class OdeslyService {
   }
 
   /*
-   ** Make request to odesly.co API
+   ** Make request to odesli.co API
    ** Doc: https://github.com/songlink/docs/blob/master/api-v1-alpha.1.md#get-links-endpoint
    */
   @Validate()
@@ -47,7 +47,7 @@ export class OdeslyService {
   public links(@Validator() linksParams: LinksParams): Observable<any> {
     const params = {
       ...linksParams,
-      key: this.configService.get('odesly.apiKey'),
+      key: this.configService.get('odesli.apiKey'),
     };
     this.validateRequestParams(params);
     return this.httpService

@@ -6,7 +6,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { OdeslyService } from '../odesly/odesly.service';
+import { OdesliService } from '../odesli/odesli.service';
 import {
   TelegrafTelegramService,
   TelegramActionHandler,
@@ -15,7 +15,7 @@ import { ContextMessageUpdate, Extra } from 'telegraf';
 import { chain, map, sortBy } from 'lodash';
 import { UsersService } from '../users/users.service';
 
-type OdeslyPlatforms =
+type OdesliPlatforms =
   | 'spotify'
   | 'itunes'
   | 'appleMusic'
@@ -33,9 +33,9 @@ type OdeslyPlatforms =
   | 'yandex'
   | 'spinrilla';
 
-interface IOdeslyAPIParams {
+interface IOdesliAPIParams {
   url?: string;
-  platform?: OdeslyPlatforms;
+  platform?: OdesliPlatforms;
   type?: 'song' | 'album';
   id?: string;
   key?: string;
@@ -68,16 +68,16 @@ export class TelegramBotService {
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
     private readonly telegrafTelegramService: TelegrafTelegramService,
-    private readonly odeslyService: OdeslyService,
+    private readonly odesliService: OdesliService,
     private readonly usersService: UsersService,
   ) {}
 
   /* Reply with links to other streaming services */
   private async replyFindedLinks(
     ctx: ContextMessageUpdate,
-    odeslyResponse: any,
+    odesliResponse: any,
   ) {
-    const links = map(odeslyResponse.linksByPlatform, (value, key) => {
+    const links = map(odesliResponse.linksByPlatform, (value, key) => {
       return {
         providerName: key,
         displayName: this.getDisplayName(key),
@@ -98,11 +98,11 @@ export class TelegramBotService {
 
   /* Reply with info about searched song */
   private async replySearchedSongInfo(ctx: ContextMessageUpdate, res: any) {
-    /* Extract searched entity in odesly response */
+    /* Extract searched entity in odesli response */
     const entity = res.entitiesByUniqueId[res.entityUniqueId];
     const { thumbnailUrl, artistName, title } = entity;
 
-    /* Check thumbnail exist in odesly response */
+    /* Check thumbnail exist in odesli response */
     if (thumbnailUrl) {
       await ctx.replyWithPhoto(
         {
@@ -224,11 +224,11 @@ export class TelegramBotService {
       }
     }
 
-    /* Get data from OdeslyAPI and send message by each link */
+    /* Get data from OdesliAPI and send message by each link */
     if (links.length > 0) {
       for (const [_, url] of links.entries()) {
         try {
-          const data = await this.odeslyService.links({ url }).toPromise();
+          const data = await this.odesliService.links({ url }).toPromise();
           if (!data) this.songLinksNotFound(ctx);
           await this.replySearchedSongInfo(ctx, data);
           await this.replyFindedLinks(ctx, data);

@@ -6,7 +6,7 @@ import {
   IsNotEmpty,
   IsISO31661Alpha2,
 } from 'class-validator';
-import { PLATFORMS, ENTITY_TYPES } from '../odesly.constants';
+import { PLATFORMS, ENTITY_TYPES } from '../odesli.constants';
 
 export class LinksParams {
   @IsString()

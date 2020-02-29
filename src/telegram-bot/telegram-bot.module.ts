@@ -5,7 +5,7 @@ import { TelegrafModule, TelegrafService } from 'nestjs-telegraf';
 import botConfig from './telegram-bot.config';
 import { TelegrafConfigService } from './telegraf-config.service';
 import { TelegramBotService } from './telegram-bot.service';
-import { OdeslyModule } from '../odesly/odesly.module';
+import { OdesliModule } from '../odesli/odesli.module';
 import { UsersModule } from '../users/users.module';
 
 @Module({
@@ -17,7 +17,7 @@ import { UsersModule } from '../users/users.module';
       useClass: TelegrafConfigService,
     }),
     UsersModule,
-    OdeslyModule,
+    OdesliModule,
   ],
   providers: [TelegramBotService],
 })
