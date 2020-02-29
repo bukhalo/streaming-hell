@@ -7,4 +7,5 @@ export const VALIDATION_SCHEMA: Schema = object({
     .default(DEFAULT_ENV),
   PORT: number().default(3000),
   MONGODB_URI: string().required(),
+  ODESLI_API_KEY: string().required(),
 });

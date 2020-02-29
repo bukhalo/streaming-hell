@@ -8,7 +8,7 @@ interface Config {
 export const odeslyConfig = registerAs(
   'odesly',
   (): Config => ({
-    apiKey: process.env.ODESLY_API_KEY,
+    apiKey: process.env.ODESLI_API_KEY,
     baseURL: 'https://api.song.link/v1-alpha.1/',
   }),
 );
