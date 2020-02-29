@@ -17,19 +17,19 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./apps/nest/test/jest-e2e.json",
-    "docker:build:telegram-bot": "docker build -t streaming-hell-telegram-bot:$npm_package_version --no-cache -f Dockerfile.telegram-bot .",
-    "docker:archive:telegram-bot": "docker save streaming-hell-telegram-bot:$npm_package_version > docker/streaming-hell-telegram-bot-$npm_package_version.tar"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "docker:build": "docker build -t streaming-hell:$npm_package_version --no-cache -f Dockerfile .",
+    "docker:archive": "docker save streaming-hell:$npm_package_version > docker/streaming-hell-$npm_package_version.tar"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.0",
@@ -64,6 +64,11 @@
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.5",
     "@types/supertest": "^2.0.8",
+    "@typescript-eslint/eslint-plugin": "^2.21.0",
+    "@typescript-eslint/parser": "^2.21.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "supertest": "^4.0.2",
@@ -71,7 +76,6 @@
     "ts-loader": "^6.1.1",
     "ts-node": "^8.4.1",
     "tsconfig-paths": "^3.9.0",
-    "tslint": "^5.20.0",
     "typescript": "^3.6.3"
   },
   "jest": {
@@ -80,20 +84,12 @@
       "json",
       "ts"
     ],
-    "rootDir": ".",
+    "rootDir": "src",
     "testRegex": ".spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "coverageDirectory": "./coverage",
-    "testEnvironment": "node",
-    "roots": [
-      "<rootDir>/apps/",
-      "<rootDir>/libs/"
-    ],
-    "moduleNameMapper": {
-      "@app/odesly/(.*)": "<rootDir>/libs/odesly/src/$1",
-      "@app/odesly": "<rootDir>/libs/odesly/src"
-    }
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
   }
 }
