@@ -5,7 +5,7 @@ import {
   IsIn,
   IsISO31661Alpha2,
 } from 'class-validator';
-import { PLATFORMS, ENTITY_TYPES } from '@app/odesly';
+import { PLATFORMS, ENTITY_TYPES } from '../../odesly/odesly.constants';
 
 export class LinksByEntityQuery {
   @IsNotEmpty()
