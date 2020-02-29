@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { SpotifyModule } from './spotify/spotify.module';
+import { ConfigModule } from './config/config.module';
+// import { SpotifyModule } from './spotify/spotify.module';
 import { LinksModule } from './links/links.module';
+import { OdeslyModule } from '@app/odesly';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({}),
-    SpotifyModule,
+    ConfigModule,
+    OdeslyModule,
+    // SpotifyModule,
     LinksModule,
   ],
 })
