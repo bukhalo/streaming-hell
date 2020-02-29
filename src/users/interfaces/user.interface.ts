@@ -8,5 +8,9 @@ interface Telegram {
 }
 
 export interface User extends Document {
+  readonly username: string;
+  readonly email: string;
+  readonly hash: string;
+  readonly salt: string;
   readonly telegram: Telegram;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import {
   Injectable,
   HttpService,
@@ -255,7 +256,7 @@ export class TelegramBotService {
 
     // save user in DB if not exist
     if (!findedUser) {
-      await this.usersService.create({
+      await this.usersService.createFromTelegram({
         telegram: {
           userID: id,
           isBot: is_bot,
