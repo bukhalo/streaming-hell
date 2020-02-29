@@ -5,7 +5,7 @@ WORKDIR /app
 RUN apk update && apk add python g++ make && rm -rf /var/cache/apk/*
 ADD . ./
 RUN npm ci
-RUN ./node_modules/.bin/nest build telegram-bot
+RUN npm run build
 
 # Install only productions deps
 FROM node:12-alpine as deps
@@ -20,6 +20,6 @@ FROM node:12-alpine
 WORKDIR /app
 
 COPY --from=deps ./app/node_modules ./node_modules
-COPY --from=builder ./app/dist/apps/telegram-bot ./dist/apps/telegram-bot
+COPY --from=builder ./app/dist ./dist/dist
 
-CMD [ "node", "dist/apps/telegram-bot/main.js" ]
+CMD [ "node", "dist/main.js" ]
