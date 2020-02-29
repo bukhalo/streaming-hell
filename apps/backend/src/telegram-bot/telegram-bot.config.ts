@@ -5,7 +5,7 @@ interface Config {
 }
 
 export default registerAs(
-  'bot',
+  'telegramBot',
   (): Config => ({
     token: process.env.TELEGRAM_BOT_TOKEN,
   }),

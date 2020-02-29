@@ -8,7 +8,7 @@ export class TelegrafConfigService implements TelegrafOptionsFactory {
 
   createTelegrafOptions(): TelegrafModuleOptions {
     return {
-      token: this.configService.get('bot.token'),
+      token: this.configService.get('telegramBot.token'),
     };
   }
 }

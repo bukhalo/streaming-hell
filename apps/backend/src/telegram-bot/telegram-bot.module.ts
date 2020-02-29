@@ -2,9 +2,9 @@ import { Module, OnModuleInit, HttpModule, Logger } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { TelegrafModule, TelegrafService } from 'nestjs-telegraf';
-import botConfig from './bot.config';
+import botConfig from './telegram-bot.config';
 import { TelegrafConfigService } from './telegraf-config.service';
-import { BotService } from './bot.service';
+import { TelegramBotService } from './telegram-bot.service';
 import { OdeslyModule } from '@app/odesly';
 import { UsersModule } from '../users/users.module';
 
@@ -19,9 +19,9 @@ import { UsersModule } from '../users/users.module';
     UsersModule,
     OdeslyModule,
   ],
-  providers: [BotService],
+  providers: [TelegramBotService],
 })
-export class BotModule implements OnModuleInit {
+export class TelegramBotModule implements OnModuleInit {
   constructor(
     private readonly moduleRef: ModuleRef,
     private readonly telegrafService: TelegrafService,

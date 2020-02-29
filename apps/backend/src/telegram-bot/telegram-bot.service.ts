@@ -43,8 +43,8 @@ interface IOdeslyAPIParams {
 }
 
 @Injectable()
-export class BotService {
-  private readonly logger = new Logger(BotService.name);
+export class TelegramBotService {
+  private readonly logger = new Logger(TelegramBotService.name);
   private readonly providersDictionary = {
     amazonMusic: 'Amazon Music',
     amazonStore: 'Amazon Music Store',
