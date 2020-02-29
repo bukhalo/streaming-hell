@@ -9,4 +9,5 @@ export const VALIDATION_SCHEMA: Schema = object({
   SENTRY_DSN: string().required(),
   MONGODB_URI: string().required(),
   ODESLI_API_KEY: string().required(),
+  TELEGRAM_BOT_TOKEN: string().required(),
 });
