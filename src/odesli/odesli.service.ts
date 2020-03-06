@@ -10,6 +10,7 @@ import { Validator, Validate } from 'typescript-param-validator';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { LinksParams } from './params/links.params';
+import { Links } from './interfaces/links.interface';
 
 @Injectable()
 export class OdesliService {
@@ -43,8 +44,7 @@ export class OdesliService {
    ** Doc: https://github.com/songlink/docs/blob/master/api-v1-alpha.1.md#get-links-endpoint
    */
   @Validate()
-  /* TODO: Write interface for function return */
-  public links(@Validator() linksParams: LinksParams): Observable<any> {
+  public links(@Validator() linksParams: LinksParams): Observable<Links> {
     const params = {
       ...linksParams,
       key: this.configService.get('odesli.apiKey'),
