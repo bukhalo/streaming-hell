@@ -98,10 +98,11 @@ export class TelegramBotService {
   }
 
   /* Reply with info about searched song */
-  private async replySearchedSongInfo(ctx: ContextMessageUpdate, res: any) {
+  private async replySearchedSongInfo(ctx: ContextMessageUpdate, res: any, url: string) {
     /* Extract searched entity in odesli response */
     const entity = res.entitiesByUniqueId[res.entityUniqueId];
     const { thumbnailUrl, artistName, title } = entity;
+    const shLink = `https://streaming-hell.com/?url=${encodeURI(url)}`;
 
     /* Check thumbnail exist in odesli response */
     if (thumbnailUrl) {
@@ -112,7 +113,7 @@ export class TelegramBotService {
           disable_notification: true,
         },
         Extra.load({
-          caption: `${artistName} – ${title}`,
+          caption: `${artistName} – ${title}\n\n[🔗 Посмотреть на Streaming Hell](${shLink})`,
         }).markdown(),
       );
     } else {
@@ -231,7 +232,7 @@ export class TelegramBotService {
         try {
           const data = await this.odesliService.links({ url }).toPromise();
           if (!data) this.songLinksNotFound(ctx);
-          await this.replySearchedSongInfo(ctx, data);
+          await this.replySearchedSongInfo(ctx, data, url);
           await this.replyFindedLinks(ctx, data);
         } catch (err) {
           this.songLinksNotFound(ctx);
