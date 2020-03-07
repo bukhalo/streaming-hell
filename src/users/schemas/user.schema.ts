@@ -3,7 +3,7 @@ import * as mongoose from 'mongoose';
 export const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true,
+    required: false,
   },
   email: {
     type: String,
@@ -11,11 +11,11 @@ export const UserSchema = new mongoose.Schema({
   },
   hash: {
     type: String,
-    required: true,
+    required: false,
   },
   salt: {
     type: String,
-    required: true,
+    required: false,
   },
   telegram: {
     userID: {
