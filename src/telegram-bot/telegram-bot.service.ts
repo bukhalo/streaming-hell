@@ -152,7 +152,7 @@ export class TelegramBotService {
           disable_notification: true,
         },
         Extra.load({
-          caption: `${artistName} – ${title}\n\n[🔗 Посмотреть на Streaming Hell](${shLink})`,
+          caption: `[${artistName} – ${title}](${shLink})`,
         }).markdown(),
       );
     } else {
