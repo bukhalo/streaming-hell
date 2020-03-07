@@ -20,6 +20,6 @@ FROM node:12-alpine
 WORKDIR /app
 
 COPY --from=deps ./app/node_modules ./node_modules
-COPY --from=builder ./app/dist ./dist/dist
+COPY --from=builder ./app/dist ./dist
 
 CMD [ "node", "dist/main.js" ]
