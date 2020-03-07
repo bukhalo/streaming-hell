@@ -8,6 +8,7 @@ import { OdesliModule } from './odesli/odesli.module';
 import { LinksModule } from './links/links.module';
 import { TelegramBotModule } from './telegram-bot/telegram-bot.module';
 // import { SpotifyModule } from './spotify/spotify.module';
+import { ProvidersModule } from './providers/providers.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TelegramBotModule } from './telegram-bot/telegram-bot.module';
     OdesliModule,
     LinksModule,
     TelegramBotModule,
+    ProvidersModule,
     // SpotifyModule,
   ],
 })

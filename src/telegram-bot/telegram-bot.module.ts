@@ -7,6 +7,7 @@ import { TelegrafConfigService } from './telegraf-config.service';
 import { TelegramBotService } from './telegram-bot.service';
 import { OdesliModule } from '../odesli/odesli.module';
 import { UsersModule } from '../users/users.module';
+import { ShazamModule } from '../providers/shazam/shazam.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UsersModule } from '../users/users.module';
     }),
     UsersModule,
     OdesliModule,
+    ShazamModule,
   ],
   providers: [TelegramBotService],
 })

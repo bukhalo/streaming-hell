@@ -15,6 +15,7 @@ import {
 import { ContextMessageUpdate, Extra } from 'telegraf';
 import { chain, map, sortBy } from 'lodash';
 import { UsersService } from '../users/users.service';
+import { ShazamService } from '../providers/shazam/shazam.service';
 
 type OdesliPlatforms =
   | 'spotify'
@@ -70,6 +71,7 @@ export class TelegramBotService {
     private readonly configService: ConfigService,
     private readonly telegrafTelegramService: TelegrafTelegramService,
     private readonly odesliService: OdesliService,
+    private readonly shazamService: ShazamService,
     private readonly usersService: UsersService,
   ) {}
 
@@ -136,40 +138,6 @@ export class TelegramBotService {
   private songLinksNotFoundInMessage(ctx: ContextMessageUpdate) {
     ctx.reply('В сообщении не найдены ссылки на музыкальные сервисы');
   }
-
-  private async replaceShazamLinkToStreamingLink(
-    url: string,
-    index: number,
-  ): Promise<string> {
-    const findShazamSongIdFromShazamLink = (shazamLink: string): number => {
-      const [shazamLinkId] = shazamLink.split('/').filter((pathPart: any) => {
-        return !isNaN(pathPart) && pathPart !== '';
-      });
-      return +shazamLinkId;
-    };
-    const shazamUrl: string =
-      'https://www.shazam.com/discovery/v4/ru/US/web/-/track/';
-    const shazamSongId: number = findShazamSongIdFromShazamLink(url);
-
-    return await this.httpService
-      .get(String(shazamSongId), {
-        baseURL: shazamUrl,
-      })
-      .toPromise()
-      .then(res => {
-        if (res.data) {
-          const linkFromShazamResponse =
-            res?.data?.hub?.options?.apple?.openin?.actions[0]?.uri ||
-            res?.data?.hub?.options?.spotify?.openin?.actions[0]?.uri;
-          return linkFromShazamResponse;
-        }
-        return;
-      })
-      .catch(err => {
-        this.logger.error('Error', err);
-      });
-  }
-
   public findUrlsInMessage(message: string): string[] {
     const urlRegExp: RegExp = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g;
     return message.match(urlRegExp);
@@ -212,13 +180,10 @@ export class TelegramBotService {
     /* Detect Shazam URL's */
     if (links.length > 0) {
       for (const [index, url] of links.entries()) {
-        if (url.match(/shazam.com/)) {
-          const newLink = await this.replaceShazamLinkToStreamingLink(
-            url,
-            index,
-          );
-          if (newLink) {
-            links.splice(index, 1, newLink);
+        if (this.shazamService.isShazamLink(url)) {
+          const shazamDiscovery = await this.shazamService.findLinks(url);
+          if (shazamDiscovery.appleMusicLink) {
+            links.splice(index, 1, shazamDiscovery.appleMusicLink);
           } else {
             links = links.filter((_, idx: number) => idx !== index);
           }
