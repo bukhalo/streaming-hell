@@ -88,11 +88,44 @@ export class TelegramBotService {
       };
     });
     const linksSorted = sortBy(links, [i => i.displayName]);
-    const message = chain(linksSorted)
+
+    const listenProviders = [
+      'spotify',
+      'appleMusic',
+      'youtube',
+      'youtubeMusic',
+      'google',
+      'pandora',
+      'deezer',
+      'tidal',
+      'amazonMusic',
+      'soundcloud',
+      'napster',
+      'yandex',
+      'spinrilla',
+    ];
+
+    const buyProviders = ['itunes', 'googleStore', 'amazonStore'];
+
+    const listenLinks = linksSorted.filter(item => {
+      return listenProviders.includes(item.providerName);
+    });
+
+    const listenMessage = chain(listenLinks)
       .map(item => `*${item.displayName}*\n[${item.url}](${item.url})\n\n`)
       .value()
       .join('');
-    await ctx.reply(message, {
+
+    const buyLinks = linksSorted.filter(item => {
+      return buyProviders.includes(item.providerName);
+    });
+
+    const buyMessage = chain(buyLinks)
+      .map(item => `*${item.displayName}*\n[${item.url}](${item.url})\n\n`)
+      .value()
+      .join('');
+
+    await ctx.reply(`🎧 Слушать\n\n${listenMessage}\n🛒 Купить\n\n${buyMessage}`, {
       parse_mode: 'Markdown',
       disable_web_page_preview: true,
       disable_notification: true,
@@ -100,7 +133,11 @@ export class TelegramBotService {
   }
 
   /* Reply with info about searched song */
-  private async replySearchedSongInfo(ctx: ContextMessageUpdate, res: any, url: string) {
+  private async replySearchedSongInfo(
+    ctx: ContextMessageUpdate,
+    res: any,
+    url: string,
+  ) {
     /* Extract searched entity in odesli response */
     const entity = res.entitiesByUniqueId[res.entityUniqueId];
     const { thumbnailUrl, artistName, title } = entity;
