@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { pbkdf2Sync } from 'crypto';
 import { UsersService } from '../users/users.service';
+import { Login } from './interfaces/login.interface';
 
 @Injectable()
 export class AuthService {
@@ -29,10 +30,10 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any) {
+  async login(user: any): Promise<Login> {
     const payload = { username: user.username, sub: user.id };
     return {
-      access_token: this.jwtService.sign(payload),
+      accessToken: this.jwtService.sign(payload),
     };
   }
 }
