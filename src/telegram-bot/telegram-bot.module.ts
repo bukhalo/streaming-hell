@@ -5,7 +5,7 @@ import { TelegrafModule, TelegrafService } from 'nestjs-telegraf';
 import botConfig from './telegram-bot.config';
 import { TelegrafConfigService } from './telegraf-config.service';
 import { TelegramBotService } from './telegram-bot.service';
-import { OdesliModule } from '../odesli/odesli.module';
+import { OdesliModule } from '../providers/odesli/odesli.module';
 import { UsersModule } from '../users/users.module';
 import { ShazamModule } from '../providers/shazam/shazam.module';
 

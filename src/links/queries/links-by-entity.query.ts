@@ -6,7 +6,7 @@ import {
   IsISO31661Alpha2,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { PLATFORMS, ENTITY_TYPES } from '../../odesli/odesli.constants';
+import { PLATFORMS, ENTITY_TYPES } from '../../providers/odesli/odesli.constants';
 
 export class LinksByEntityQuery {
   @IsNotEmpty()

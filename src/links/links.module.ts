@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { OdesliModule } from '../odesli/odesli.module';
+import { OdesliModule } from '../providers/odesli/odesli.module';
 import { LinksController } from './links.controller';
 
 @Module({

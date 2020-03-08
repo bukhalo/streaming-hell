@@ -7,7 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { OdesliService } from '../odesli/odesli.service';
+import { OdesliService } from '../providers/odesli/odesli.service';
 import {
   TelegrafTelegramService,
   TelegramActionHandler,
