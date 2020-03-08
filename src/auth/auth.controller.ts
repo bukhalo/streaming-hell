@@ -7,10 +7,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UsersService } from '../users/users.service';
+import { JwtAuthGuard, LocalAuthGuard } from './guards';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -20,7 +20,7 @@ export class AuthController {
     private readonly usersService: UsersService,
   ) {}
 
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(LocalAuthGuard)
   @Post('login')
   @ApiOperation({
     description: 'Login with username and password',
@@ -29,7 +29,7 @@ export class AuthController {
     return this.authService.login(req.user);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   @Get('user')
   @ApiOperation({
     description: 'Get user information',
