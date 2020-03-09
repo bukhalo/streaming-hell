@@ -15,7 +15,7 @@ export class UsersController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin')
   @ApiOperation({
-    description: 'New user registration',
+    description: '',
   })
   async list() {
     await this.usersService.findAll();
