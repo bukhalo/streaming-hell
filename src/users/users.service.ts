@@ -19,7 +19,7 @@ export class UsersService {
       'sha512',
     ).toString('hex');
     const createdUser = new this.userModel({
-      username: createUserDto.username,
+      // username: createUserDto.username,
       email: createUserDto.email,
       salt,
       hash,
@@ -35,6 +35,10 @@ export class UsersService {
   async findOne(username: string): Promise<User> {
     const data = await this.userModel.findOne({ username }).exec();
     return data;
+  }
+
+  async findOneByEmail(email: string): Promise<User> {
+    return await this.userModel.findOne({ email }).exec();
   }
 
   async findByTelegramUserID(userID: number): Promise<User> {

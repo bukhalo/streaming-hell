@@ -17,13 +17,13 @@ export class AuthService {
     );
   }
 
-  async validateUser(username: string, password: string): Promise<any> {
-    const user = await this.usersService.findOne(username);
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.usersService.findOneByEmail(email);
     if (user && this.validatePassword(password, user.salt, user.hash)) {
       return {
         // @ts-ignore
         id: user.id,
-        username: user.username,
+        // username: user.username,
         email: user.email,
       };
     }
