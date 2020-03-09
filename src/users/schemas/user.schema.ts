@@ -17,6 +17,10 @@ export const UserSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  roles: {
+    type: [String],
+    required: false,
+  },
   telegram: {
     userID: {
       type: Number,

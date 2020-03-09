@@ -12,5 +12,6 @@ export interface User extends Document {
   readonly email: string;
   readonly hash: string;
   readonly salt: string;
+  readonly roles: string[];
   readonly telegram: Telegram;
 }
