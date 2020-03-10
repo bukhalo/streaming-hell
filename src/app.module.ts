@@ -4,11 +4,9 @@ import { ConfigModule } from './config/config.module';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { OdesliModule } from './odesli/odesli.module';
+import { ProvidersModule } from './providers/providers.module';
 import { LinksModule } from './links/links.module';
 import { TelegramBotModule } from './telegram-bot/telegram-bot.module';
-// import { SpotifyModule } from './spotify/spotify.module';
-import { ProvidersModule } from './providers/providers.module';
 
 @Module({
   imports: [
@@ -17,11 +15,9 @@ import { ProvidersModule } from './providers/providers.module';
     DatabaseModule,
     AuthModule,
     UsersModule,
-    OdesliModule,
+    ProvidersModule,
     LinksModule,
     TelegramBotModule,
-    ProvidersModule,
-    // SpotifyModule,
   ],
 })
 export class AppModule {}

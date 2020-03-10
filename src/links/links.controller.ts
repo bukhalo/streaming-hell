@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { OdesliService } from '../odesli/odesli.service';
+import { OdesliService } from '../providers/odesli/odesli.service';
 import { Observable } from 'rxjs';
 import { LinksByEntityQuery } from './queries/links-by-entity.query';
 import { LinksByUrlQuery } from './queries/links-by-url.query';

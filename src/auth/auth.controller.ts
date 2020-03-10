@@ -1,48 +1,19 @@
-import {
-  Controller,
-  Request,
-  Body,
-  Get,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Req, Post, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { UsersService } from '../users/users.service';
+import { LocalAuthGuard } from './guards';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly usersService: UsersService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(LocalAuthGuard)
   @Post('login')
   @ApiOperation({
     description: 'Login with username and password',
   })
-  async login(@Request() req) {
+  async login(@Req() req) {
     return this.authService.login(req.user);
-  }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Get('user')
-  @ApiOperation({
-    description: 'Get user information',
-  })
-  user(@Request() req) {
-    return req.user;
-  }
-
-  @Post('registration')
-  @ApiOperation({
-    description: 'New user registration',
-  })
-  registration(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
   }
 }
