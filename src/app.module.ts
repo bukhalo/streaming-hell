@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
 import { SentryModule } from './sentry/sentry.module';
 import { ConfigModule } from './config/config.module';
 import { DatabaseModule } from './database/database.module';
@@ -13,6 +14,9 @@ import { TelegramBotModule } from './telegram-bot/telegram-bot.module';
     SentryModule,
     ConfigModule,
     DatabaseModule,
+    GraphQLModule.forRoot({
+      autoSchemaFile: true,
+    }),
     AuthModule,
     UsersModule,
     ProvidersModule,

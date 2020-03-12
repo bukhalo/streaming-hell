@@ -27,11 +27,6 @@ export class UsersService {
     return await createdUser.save();
   }
 
-  async createFromTelegram(createUserDto): Promise<User> {
-    const createdUser = new this.userModel(createUserDto);
-    return createdUser.save();
-  }
-
   async findOne(id: string): Promise<User> {
     const data = await this.userModel.findOne({ _id: id }).exec();
     return data;
@@ -43,9 +38,5 @@ export class UsersService {
 
   async findOneByEmail(email: string): Promise<User> {
     return await this.userModel.findOne({ email }).exec();
-  }
-
-  async findByTelegramUserID(userID: number): Promise<User> {
-    return await this.userModel.findOne({ 'telegram.userID': userID }).exec();
   }
 }

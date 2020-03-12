@@ -14,7 +14,7 @@ import {
 } from 'nestjs-telegraf';
 import { ContextMessageUpdate, Extra } from 'telegraf';
 import { chain, map, sortBy } from 'lodash';
-import { UsersService } from '../users/users.service';
+import { UsersService } from './users/users.service';
 import { ShazamService } from '../providers/shazam/shazam.service';
 
 type OdesliPlatforms =
@@ -125,11 +125,14 @@ export class TelegramBotService {
       .value()
       .join('');
 
-    await ctx.reply(`🎧 Слушать\n\n${listenMessage}\n🛒 Купить\n\n${buyMessage}`, {
-      parse_mode: 'Markdown',
-      disable_web_page_preview: true,
-      disable_notification: true,
-    });
+    await ctx.reply(
+      `🎧 Слушать\n\n${listenMessage}\n🛒 Купить\n\n${buyMessage}`,
+      {
+        parse_mode: 'Markdown',
+        disable_web_page_preview: true,
+        disable_notification: true,
+      },
+    );
   }
 
   /* Reply with info about searched song */
@@ -254,21 +257,22 @@ export class TelegramBotService {
       language_code,
     } = ctx.message.from;
 
+    console.log(ctx.message);
+
     // get user by telegram user id
-    const findedUser = await this.usersService.findByTelegramUserID(id);
+    const findedUser = await this.usersService.findByUserId(id);
 
     // save user in DB if not exist
     if (!findedUser) {
-      await this.usersService.createFromTelegram({
-        telegram: {
-          userID: id,
-          isBot: is_bot,
-          firstName: first_name,
-          lastName: last_name,
-          username,
-          languageCode: language_code,
-        },
+      const test2 = await this.usersService.create({
+        userId: id,
+        isBot: is_bot,
+        firstName: first_name,
+        lastName: last_name,
+        username,
+        languageCode: language_code,
       });
+      console.log(test2);
     }
   }
 }

@@ -21,15 +21,4 @@ export const UserSchema = new mongoose.Schema({
     type: [String],
     required: false,
   },
-  telegram: {
-    userID: {
-      type: Number,
-      index: true,
-    },
-    isBot: Boolean,
-    languageCode: String,
-    firstName: String,
-    lastName: String,
-    username: String,
-  },
 });

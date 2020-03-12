@@ -6,8 +6,8 @@ import botConfig from './telegram-bot.config';
 import { TelegrafConfigService } from './telegraf-config.service';
 import { TelegramBotService } from './telegram-bot.service';
 import { OdesliModule } from '../providers/odesli/odesli.module';
-import { UsersModule } from '../users/users.module';
 import { ShazamModule } from '../providers/shazam/shazam.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -17,9 +17,9 @@ import { ShazamModule } from '../providers/shazam/shazam.module';
       imports: [ConfigModule.forFeature(botConfig)],
       useClass: TelegrafConfigService,
     }),
-    UsersModule,
     OdesliModule,
     ShazamModule,
+    UsersModule,
   ],
   providers: [TelegramBotService],
 })
