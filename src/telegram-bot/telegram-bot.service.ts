@@ -1,45 +1,11 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {
-  Injectable,
-  HttpService,
-  HttpException,
-  HttpStatus,
-  Logger,
-} from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { OdesliService } from '../providers/odesli/odesli.service';
 import { TelegrafStart, TelegrafOn, TelegrafCommand } from 'nestjs-telegraf';
 import { ContextMessageUpdate, Extra } from 'telegraf';
 import { chain, map, sortBy } from 'lodash';
 import { UsersService } from './users/users.service';
 import { ShazamService } from '../providers/shazam/shazam.service';
-
-type OdesliPlatforms =
-  | 'spotify'
-  | 'itunes'
-  | 'appleMusic'
-  | 'youtube'
-  | 'youtubeMusic'
-  | 'google'
-  | 'googleStore'
-  | 'pandora'
-  | 'deezer'
-  | 'tidal'
-  | 'amazonStore'
-  | 'amazonMusic'
-  | 'soundcloud'
-  | 'napster'
-  | 'yandex'
-  | 'spinrilla';
-
-interface IOdesliAPIParams {
-  url?: string;
-  platform?: OdesliPlatforms;
-  type?: 'song' | 'album';
-  id?: string;
-  key?: string;
-  userCountry?: string;
-}
 
 @Injectable()
 export class TelegramBotService {
@@ -64,8 +30,6 @@ export class TelegramBotService {
   };
 
   constructor(
-    private readonly httpService: HttpService,
-    private readonly configService: ConfigService,
     private readonly odesliService: OdesliService,
     private readonly shazamService: ShazamService,
     private readonly usersService: UsersService,
