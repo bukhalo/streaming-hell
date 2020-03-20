@@ -8,10 +8,7 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { OdesliService } from '../providers/odesli/odesli.service';
-import {
-  TelegrafTelegramService,
-  TelegramActionHandler,
-} from 'nestjs-telegraf';
+import { TelegrafStart, TelegrafOn } from 'nestjs-telegraf';
 import { ContextMessageUpdate, Extra } from 'telegraf';
 import { chain, map, sortBy } from 'lodash';
 import { UsersService } from './users/users.service';
@@ -69,7 +66,6 @@ export class TelegramBotService {
   constructor(
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
-    private readonly telegrafTelegramService: TelegrafTelegramService,
     private readonly odesliService: OdesliService,
     private readonly shazamService: ShazamService,
     private readonly usersService: UsersService,
@@ -183,15 +179,15 @@ export class TelegramBotService {
     return message.match(urlRegExp);
   }
 
-  @TelegramActionHandler({ onStart: true })
+  @TelegrafStart()
   async startCommand(ctx: ContextMessageUpdate) {
     await ctx.reply(
       '👋 Привет!\n\nПоделись со мной ссылкой на трек или альбом из любого приложения, а я в ответ пришлю ссылки, на все музыкальные сервисы где можно найти этот альбом или композицию.',
     );
   }
 
-  @TelegramActionHandler({ message: RegExp('') })
-  async onMessage(ctx: ContextMessageUpdate) {
+  @TelegrafOn('message')
+  async onMessage(ctx: ContextMessageUpdate, next) {
     this.user(ctx);
 
     const { message } = ctx;
@@ -215,6 +211,8 @@ export class TelegramBotService {
       links = messageLinks;
     } else {
       this.songLinksNotFoundInMessage(ctx);
+      next();
+      return;
     }
 
     /* Detect Shazam URL's */
@@ -245,6 +243,8 @@ export class TelegramBotService {
         }
       }
     }
+
+    next();
   }
 
   async user(ctx: ContextMessageUpdate) {
