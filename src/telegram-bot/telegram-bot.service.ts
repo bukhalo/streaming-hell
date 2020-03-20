@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { OdesliService } from '../providers/odesli/odesli.service';
-import { TelegrafStart, TelegrafOn } from 'nestjs-telegraf';
+import { TelegrafStart, TelegrafOn, TelegrafCommand } from 'nestjs-telegraf';
 import { ContextMessageUpdate, Extra } from 'telegraf';
 import { chain, map, sortBy } from 'lodash';
 import { UsersService } from './users/users.service';
@@ -182,7 +182,34 @@ export class TelegramBotService {
   @TelegrafStart()
   async startCommand(ctx: ContextMessageUpdate) {
     await ctx.reply(
-      '👋 Привет!\n\nПоделись со мной ссылкой на трек или альбом из любого приложения, а я в ответ пришлю ссылки, на все музыкальные сервисы где можно найти этот альбом или композицию.',
+      '👋 Привет!\n\n' +
+        'Моя основная функция – искать музыку во всех (почти) стриминогвых сервисах.\n\n' +
+        'Отправь мне ссылку или несколько ссылок на трек или альбом из любого стримингового сервиса, а в ответ я пришлю ссылки на другие сервисы, где я нашёл твой трек или альбом.\n\n' +
+        'Список поддерживаемых на данный момент сервисов можно получить командой /services',
+    );
+  }
+
+  @TelegrafCommand('services')
+  async servicesCommand(ctx: ContextMessageUpdate) {
+    await ctx.reply(
+      'На текущий момент бот поддерживает следующие сервисы:\n\n' +
+        'Apple Music\n' +
+        'Amazon Music\n' +
+        'Amazon Store\n' +
+        'Deezer\n' +
+        'Google Music\n' +
+        'Google Play\n' +
+        'iTunes\n' +
+        'Napster\n' +
+        'Pandora\n' +
+        'SoundCloud\n' +
+        'Spinrilla\n' +
+        'Spotify\n' +
+        'Shazam\n' +
+        'Tidal\n' +
+        'Yandex.Music\n' +
+        'YouTube\n' +
+        'YouTube Music\n',
     );
   }
 
