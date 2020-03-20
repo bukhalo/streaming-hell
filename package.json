@@ -39,7 +39,7 @@
     "@nestjs/graphql": "7.0.10",
     "@nestjs/jwt": "7.0.0",
     "@nestjs/mongoose": "6.4.0",
-    "@nestjs/passport": "6.2.0",
+    "@nestjs/passport": "7.0.0",
     "@nestjs/platform-express": "7.0.3",
     "@nestjs/swagger": "4.4.0",
     "@ntegral/nestjs-sentry": "1.0.0",
