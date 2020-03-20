@@ -206,6 +206,9 @@ export class TelegramBotService {
       return;
     }
 
+    // @ts-ignore
+    ctx.tg.deleteMessage(ctx.chat.id, ctx.message.message_id);
+
     /* Detect Shazam URL's */
     if (links.length > 0) {
       for (const [index, url] of links.entries()) {
