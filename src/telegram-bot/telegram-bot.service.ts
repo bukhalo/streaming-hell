@@ -1,75 +1,24 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {
-  Injectable,
-  HttpService,
-  HttpException,
-  HttpStatus,
-  Logger,
-} from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { OdesliService } from '../providers/odesli/odesli.service';
-import {
-  TelegrafTelegramService,
-  TelegramActionHandler,
-} from 'nestjs-telegraf';
+import { TelegrafStart, TelegrafOn, TelegrafCommand } from 'nestjs-telegraf';
 import { ContextMessageUpdate, Extra } from 'telegraf';
 import { chain, map, sortBy } from 'lodash';
 import { UsersService } from './users/users.service';
 import { ShazamService } from '../providers/shazam/shazam.service';
-
-type OdesliPlatforms =
-  | 'spotify'
-  | 'itunes'
-  | 'appleMusic'
-  | 'youtube'
-  | 'youtubeMusic'
-  | 'google'
-  | 'googleStore'
-  | 'pandora'
-  | 'deezer'
-  | 'tidal'
-  | 'amazonStore'
-  | 'amazonMusic'
-  | 'soundcloud'
-  | 'napster'
-  | 'yandex'
-  | 'spinrilla';
-
-interface IOdesliAPIParams {
-  url?: string;
-  platform?: OdesliPlatforms;
-  type?: 'song' | 'album';
-  id?: string;
-  key?: string;
-  userCountry?: string;
-}
+import {
+  BUY_PROVIDERS,
+  LISTEN_PROVIDERS,
+  PROVIDERS_DICTIONARY,
+  SERVICES_COMMAND_REPLY,
+  START_COMMAND_REPLY,
+} from './telegram-bot.constants';
 
 @Injectable()
 export class TelegramBotService {
   private readonly logger = new Logger(TelegramBotService.name);
-  private readonly providersDictionary = {
-    amazonMusic: 'Amazon Music',
-    amazonStore: 'Amazon Music Store',
-    appleMusic: 'Apple Music',
-    deezer: 'Deezer',
-    google: 'Google Play Music',
-    googleStore: 'Google Play Music Store',
-    itunes: 'iTunes',
-    napster: 'Napster',
-    pandora: 'Pandora',
-    spinrilla: 'Spinrilla',
-    soundcloud: 'SoundCloud',
-    spotify: 'Spotify',
-    tidal: 'Tidal',
-    yandex: 'Яндекс.Музыка',
-    youtube: 'YouTube',
-    youtubeMusic: 'YouTube Music',
-  };
 
   constructor(
-    private readonly httpService: HttpService,
-    private readonly configService: ConfigService,
-    private readonly telegrafTelegramService: TelegrafTelegramService,
     private readonly odesliService: OdesliService,
     private readonly shazamService: ShazamService,
     private readonly usersService: UsersService,
@@ -89,44 +38,26 @@ export class TelegramBotService {
     });
     const linksSorted = sortBy(links, [i => i.displayName]);
 
-    const listenProviders = [
-      'spotify',
-      'appleMusic',
-      'youtube',
-      'youtubeMusic',
-      'google',
-      'pandora',
-      'deezer',
-      'tidal',
-      'amazonMusic',
-      'soundcloud',
-      'napster',
-      'yandex',
-      'spinrilla',
-    ];
-
-    const buyProviders = ['itunes', 'googleStore', 'amazonStore'];
-
     const listenLinks = linksSorted.filter(item => {
-      return listenProviders.includes(item.providerName);
+      return LISTEN_PROVIDERS.includes(item.providerName);
     });
 
     const listenMessage = chain(listenLinks)
-      .map(item => `*${item.displayName}*\n[${item.url}](${item.url})\n\n`)
+      .map(item => `[${item.displayName}](${item.url})\n`)
       .value()
       .join('');
 
     const buyLinks = linksSorted.filter(item => {
-      return buyProviders.includes(item.providerName);
+      return BUY_PROVIDERS.includes(item.providerName);
     });
 
     const buyMessage = chain(buyLinks)
-      .map(item => `*${item.displayName}*\n[${item.url}](${item.url})\n\n`)
+      .map(item => `[${item.displayName}](${item.url})\n`)
       .value()
       .join('');
 
     await ctx.reply(
-      `🎧 Слушать\n\n${listenMessage}\n🛒 Купить\n\n${buyMessage}`,
+      `🎧 *Слушать*\n\n${listenMessage}\n\n🛍 *Купить*\n\n${buyMessage}`,
       {
         parse_mode: 'Markdown',
         disable_web_page_preview: true,
@@ -168,7 +99,7 @@ export class TelegramBotService {
 
   private getDisplayName(providerName: string): string {
     // @ts-ignore
-    return this.providersDictionary[providerName];
+    return PROVIDERS_DICTIONARY[providerName];
   }
 
   private songLinksNotFound(ctx: ContextMessageUpdate) {
@@ -183,15 +114,18 @@ export class TelegramBotService {
     return message.match(urlRegExp);
   }
 
-  @TelegramActionHandler({ onStart: true })
+  @TelegrafStart()
   async startCommand(ctx: ContextMessageUpdate) {
-    await ctx.reply(
-      '👋 Привет!\n\nПоделись со мной ссылкой на трек или альбом из любого приложения, а я в ответ пришлю ссылки, на все музыкальные сервисы где можно найти этот альбом или композицию.',
-    );
+    await ctx.reply(START_COMMAND_REPLY);
   }
 
-  @TelegramActionHandler({ message: RegExp('') })
-  async onMessage(ctx: ContextMessageUpdate) {
+  @TelegrafCommand('services')
+  async servicesCommand(ctx: ContextMessageUpdate) {
+    await ctx.reply(SERVICES_COMMAND_REPLY);
+  }
+
+  @TelegrafOn('message')
+  async onMessage(ctx: ContextMessageUpdate, next) {
     this.user(ctx);
 
     const { message } = ctx;
@@ -215,7 +149,12 @@ export class TelegramBotService {
       links = messageLinks;
     } else {
       this.songLinksNotFoundInMessage(ctx);
+      next();
+      return;
     }
+
+    // @ts-ignore
+    ctx.tg.deleteMessage(ctx.chat.id, ctx.message.message_id);
 
     /* Detect Shazam URL's */
     if (links.length > 0) {
@@ -245,6 +184,8 @@ export class TelegramBotService {
         }
       }
     }
+
+    next();
   }
 
   async user(ctx: ContextMessageUpdate) {
