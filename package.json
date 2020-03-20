@@ -32,7 +32,7 @@
     "docker:archive:push": "docker save streaming-hell:$npm_package_version | ssh -C root@95.216.141.51 docker load"
   },
   "dependencies": {
-    "@hapi/joi": "17.1.0",
+    "@hapi/joi": "17.1.1",
     "@nestjs/common": "6.11.11",
     "@nestjs/config": "0.4.0",
     "@nestjs/core": "6.11.11",
