@@ -72,7 +72,7 @@ export class TelegramBotService {
     });
 
     const listenMessage = chain(listenLinks)
-      .map(item => `*${item.displayName}*\n[${item.url}](${item.url})\n\n`)
+      .map(item => `[${item.displayName}](${item.url})\n`)
       .value()
       .join('');
 
@@ -81,12 +81,12 @@ export class TelegramBotService {
     });
 
     const buyMessage = chain(buyLinks)
-      .map(item => `*${item.displayName}*\n[${item.url}](${item.url})\n\n`)
+      .map(item => `[${item.displayName}](${item.url})\n`)
       .value()
       .join('');
 
     await ctx.reply(
-      `🎧 Слушать\n\n${listenMessage}\n🛒 Купить\n\n${buyMessage}`,
+      `🎧 *Слушать*\n\n${listenMessage}\n\n🛍 *Купить*\n\n${buyMessage}`,
       {
         parse_mode: 'Markdown',
         disable_web_page_preview: true,
