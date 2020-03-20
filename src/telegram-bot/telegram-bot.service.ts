@@ -6,28 +6,17 @@ import { ContextMessageUpdate, Extra } from 'telegraf';
 import { chain, map, sortBy } from 'lodash';
 import { UsersService } from './users/users.service';
 import { ShazamService } from '../providers/shazam/shazam.service';
+import {
+  BUY_PROVIDERS,
+  LISTEN_PROVIDERS,
+  PROVIDERS_DICTIONARY,
+  SERVICES_COMMAND_REPLY,
+  START_COMMAND_REPLY,
+} from './telegram-bot.constants';
 
 @Injectable()
 export class TelegramBotService {
   private readonly logger = new Logger(TelegramBotService.name);
-  private readonly providersDictionary = {
-    amazonMusic: 'Amazon Music',
-    amazonStore: 'Amazon Music Store',
-    appleMusic: 'Apple Music',
-    deezer: 'Deezer',
-    google: 'Google Play Music',
-    googleStore: 'Google Play Music Store',
-    itunes: 'iTunes',
-    napster: 'Napster',
-    pandora: 'Pandora',
-    spinrilla: 'Spinrilla',
-    soundcloud: 'SoundCloud',
-    spotify: 'Spotify',
-    tidal: 'Tidal',
-    yandex: 'Яндекс.Музыка',
-    youtube: 'YouTube',
-    youtubeMusic: 'YouTube Music',
-  };
 
   constructor(
     private readonly odesliService: OdesliService,
@@ -49,26 +38,8 @@ export class TelegramBotService {
     });
     const linksSorted = sortBy(links, [i => i.displayName]);
 
-    const listenProviders = [
-      'spotify',
-      'appleMusic',
-      'youtube',
-      'youtubeMusic',
-      'google',
-      'pandora',
-      'deezer',
-      'tidal',
-      'amazonMusic',
-      'soundcloud',
-      'napster',
-      'yandex',
-      'spinrilla',
-    ];
-
-    const buyProviders = ['itunes', 'googleStore', 'amazonStore'];
-
     const listenLinks = linksSorted.filter(item => {
-      return listenProviders.includes(item.providerName);
+      return LISTEN_PROVIDERS.includes(item.providerName);
     });
 
     const listenMessage = chain(listenLinks)
@@ -77,7 +48,7 @@ export class TelegramBotService {
       .join('');
 
     const buyLinks = linksSorted.filter(item => {
-      return buyProviders.includes(item.providerName);
+      return BUY_PROVIDERS.includes(item.providerName);
     });
 
     const buyMessage = chain(buyLinks)
@@ -128,7 +99,7 @@ export class TelegramBotService {
 
   private getDisplayName(providerName: string): string {
     // @ts-ignore
-    return this.providersDictionary[providerName];
+    return PROVIDERS_DICTIONARY[providerName];
   }
 
   private songLinksNotFound(ctx: ContextMessageUpdate) {
@@ -145,36 +116,12 @@ export class TelegramBotService {
 
   @TelegrafStart()
   async startCommand(ctx: ContextMessageUpdate) {
-    await ctx.reply(
-      '👋 Привет!\n\n' +
-        'Моя основная функция – искать музыку во всех (почти) стриминогвых сервисах.\n\n' +
-        'Отправь мне ссылку или несколько ссылок на трек или альбом из любого стримингового сервиса, а в ответ я пришлю ссылки на другие сервисы, где я нашёл твой трек или альбом.\n\n' +
-        'Список поддерживаемых на данный момент сервисов можно получить командой /services',
-    );
+    await ctx.reply(START_COMMAND_REPLY);
   }
 
   @TelegrafCommand('services')
   async servicesCommand(ctx: ContextMessageUpdate) {
-    await ctx.reply(
-      'На текущий момент бот поддерживает следующие сервисы:\n\n' +
-        'Apple Music\n' +
-        'Amazon Music\n' +
-        'Amazon Store\n' +
-        'Deezer\n' +
-        'Google Music\n' +
-        'Google Play\n' +
-        'iTunes\n' +
-        'Napster\n' +
-        'Pandora\n' +
-        'SoundCloud\n' +
-        'Spinrilla\n' +
-        'Spotify\n' +
-        'Shazam\n' +
-        'Tidal\n' +
-        'Yandex.Music\n' +
-        'YouTube\n' +
-        'YouTube Music\n',
-    );
+    await ctx.reply(SERVICES_COMMAND_REPLY);
   }
 
   @TelegrafOn('message')
