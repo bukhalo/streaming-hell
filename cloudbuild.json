@@ -1,0 +1,37 @@
+{
+  "steps": [
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": [
+        "build",
+        "-t",
+        "eu.gcr.io/streaminghell/api",
+        "."
+      ]
+    },
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": [
+        "push",
+        "eu.gcr.io/streaminghell/api"
+      ]
+    },
+    {
+      "name": "gcr.io/cloud-builders/gcloud",
+      "args": [
+        "run",
+        "deploy",
+        "api",
+        "--image",
+        "eu.gcr.io/streaminghell/api",
+        "--region",
+        "europe-north1",
+        "--platform",
+        "managed"
+      ]
+    }
+  ],
+  "images": [
+    "eu.gcr.io/streaminghell/api"
+  ]
+}
