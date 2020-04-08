@@ -41,7 +41,7 @@
     "@nestjs/mongoose": "6.4.0",
     "@nestjs/passport": "7.0.0",
     "@nestjs/platform-express": "7.0.3",
-    "@nestjs/swagger": "4.4.0",
+    "@nestjs/swagger": "4.5.1",
     "@ntegral/nestjs-sentry": "1.0.0",
     "apollo-server-express": "2.12.0",
     "graphql": "14.6.0",
