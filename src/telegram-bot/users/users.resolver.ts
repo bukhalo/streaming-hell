@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Query, Resolver } from '@nestjs/graphql';
-import { GqlAuthGuard } from '../../common/guards/graphql-auth.guard';
+import { GqlAuthGuard } from '../../core/guards';
 import { TelegramBotUser } from './models/user.model';
 import { UsersService } from './users.service';
 
