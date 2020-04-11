@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import * as helmet from 'helmet';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 
@@ -8,6 +9,8 @@ async function bootstrap() {
 
   app.setGlobalPrefix('v1');
   app.useGlobalPipes(new ValidationPipe({ transform: true }))
+
+  app.use(helmet());
 
   const options = new DocumentBuilder()
     .setTitle('Streaming Hell API')
