@@ -10,6 +10,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { StartModule } from './start/start.module';
+import { ServicesModule } from './services/services.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { StartModule } from './start/start.module';
       inject: [ConfigService],
     }),
     StartModule,
+    ServicesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
