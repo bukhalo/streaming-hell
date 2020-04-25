@@ -1,6 +1,6 @@
 {
   "name": "telegram-bot",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "",
   "author": "",
   "private": true,
@@ -29,6 +29,7 @@
     "@nestjs/platform-express": "7.0.9",
     "class-transformer": "0.2.3",
     "class-validator": "0.12.2",
+    "lodash": "4.17.15",
     "mongoose": "5.9.10",
     "nestjs-telegraf": "1.1.0",
     "reflect-metadata": "0.1.13",
