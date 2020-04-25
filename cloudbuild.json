@@ -1,0 +1,37 @@
+{
+  "steps": [
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": [
+        "build",
+        "-t",
+        "eu.gcr.io/streaming-hell-275207/telegram-bot",
+        "."
+      ]
+    },
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": [
+        "push",
+        "eu.gcr.io/streaming-hell-275207/telegram-bot"
+      ]
+    },
+    {
+      "name": "gcr.io/cloud-builders/gcloud",
+      "args": [
+        "run",
+        "deploy",
+        "telegram-bot",
+        "--image",
+        "eu.gcr.io/streaming-hell-275207/telegram-bot",
+        "--region",
+        "europe-north1",
+        "--platform",
+        "managed"
+      ]
+    }
+  ],
+  "images": [
+    "eu.gcr.io/streaming-hell-275207/api"
+  ]
+}
