@@ -32,6 +32,6 @@
     }
   ],
   "images": [
-    "eu.gcr.io/streaming-hell-275207/api"
+    "eu.gcr.io/streaming-hell-275207/telegram-bot"
   ]
 }
