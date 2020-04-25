@@ -118,8 +118,6 @@ export class SongLinkPmService {
 
   @TelegrafOn('message')
   async onMessage(ctx, next) {
-    this.user(ctx);
-
     const { message } = ctx;
 
     let links: string[] = [];
@@ -186,34 +184,5 @@ export class SongLinkPmService {
     }
 
     next();
-  }
-
-  async user(ctx) {
-    const {
-      id,
-      is_bot,
-      first_name,
-      last_name,
-      username,
-      language_code,
-    } = ctx.message.from;
-
-    console.log(ctx.message);
-
-    // get user by telegram user id
-    const findedUser = await this.usersService.findByUserId(id);
-
-    // save user in DB if not exist
-    if (!findedUser) {
-      const test2 = await this.usersService.create({
-        userId: id,
-        isBot: is_bot,
-        firstName: first_name,
-        lastName: last_name,
-        username,
-        languageCode: language_code,
-      });
-      console.log(test2);
-    }
   }
 }
