@@ -6,21 +6,30 @@ import {
   validationOptions,
   validationSchema,
 } from './core/configs';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { StartModule } from './start/start.module';
 import { ServicesModule } from './services/services.module';
+import { SongLinkPmModule } from './song-link-pm/song-link-pm.module';
+import { UsersModule } from './users/users.module';
+import { mongooseModule } from './core/configs/mongoose-module.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: ['.env.development.local', '.env.development'],
-      load: [app, telegrafModule],
+      load: [app, mongooseModule, telegrafModule],
       validationOptions,
       validationSchema,
       isGlobal: true,
       expandVariables: true,
+    }),
+    MongooseModule.forRootAsync({
+      useFactory: async (configService: ConfigService) =>
+        configService.get('mongooseModule'),
+      inject: [ConfigService],
     }),
     TelegrafModule.forRootAsync({
       useFactory: (configService: ConfigService) =>
@@ -29,6 +38,8 @@ import { ServicesModule } from './services/services.module';
     }),
     StartModule,
     ServicesModule,
+    SongLinkPmModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

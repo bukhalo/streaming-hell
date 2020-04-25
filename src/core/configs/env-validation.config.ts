@@ -5,6 +5,8 @@ export const validationSchema = object({
     .valid('development', 'production', 'test', 'provision')
     .default('development'),
   PORT: number().default(3000),
+  BOT_TOKEN: string().required(),
+  MONGODB_URI: string().required(),
 });
 
 export const validationOptions: ValidationOptions = {
