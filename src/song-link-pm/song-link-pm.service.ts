@@ -6,7 +6,7 @@ import {
   HttpService,
 } from '@nestjs/common';
 import { TelegrafOn } from 'nestjs-telegraf';
-import { ContextMessageUpdate, Extra } from 'telegraf';
+import { Context, Extra } from 'telegraf';
 import { chain, map, sortBy } from 'lodash';
 import { map as rxMap, catchError } from 'rxjs/operators';
 import { UsersService } from '../users/users.service';
@@ -28,7 +28,7 @@ export class SongLinkPmService {
 
   /* Reply with links to other streaming services */
   private async replyFindedLinks(
-    ctx: ContextMessageUpdate,
+    ctx: Context,
     odesliResponse: any,
   ) {
     const links = map(odesliResponse.linksByPlatform, (value, key) => {
@@ -70,7 +70,7 @@ export class SongLinkPmService {
 
   /* Reply with info about searched song */
   private async replySearchedSongInfo(
-    ctx: ContextMessageUpdate,
+    ctx: Context,
     res: any,
     url: string,
   ) {
