@@ -1,6 +1,6 @@
 {
   "name": "telegram-bot",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "",
   "author": "",
   "private": true,
@@ -18,7 +18,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "release": "standard-version"
   },
   "dependencies": {
     "@hapi/joi": "17.1.1",
@@ -53,6 +54,7 @@
     "eslint-plugin-import": "2.20.2",
     "jest": "26.0.1",
     "prettier": "2.0.5",
+    "standard-version": "^7.1.0",
     "supertest": "4.0.2",
     "ts-jest": "25.5.0",
     "ts-loader": "7.0.2",
