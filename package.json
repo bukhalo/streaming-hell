@@ -46,7 +46,7 @@
     "apollo-server-express": "2.14.2",
     "graphql": "15.3.0",
     "graphql-tools": "6.0.18",
-    "graphql-type-json": "0.3.1",
+    "graphql-type-json": "0.3.2",
     "helmet": "3.22.0",
     "lodash": "4.17.19",
     "mongoose": "5.9.21",
