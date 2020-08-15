@@ -43,7 +43,7 @@
     "@nestjs/platform-express": "7.4.2",
     "@nestjs/swagger": "4.5.12",
     "@ntegral/nestjs-sentry": "1.0.4",
-    "apollo-server-express": "2.14.2",
+    "apollo-server-express": "2.16.1",
     "graphql": "15.3.0",
     "graphql-tools": "6.0.18",
     "graphql-type-json": "0.3.2",
