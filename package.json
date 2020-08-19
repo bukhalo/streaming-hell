@@ -59,7 +59,7 @@
     "rxjs": "6.6.2",
     "spotify-web-api-node": "4.0.0",
     "swagger-ui-express": "4.1.4",
-    "type-graphql": "0.17.6",
+    "type-graphql": "1.0.0",
     "typescript-param-validator": "1.1.0"
   },
   "devDependencies": {
