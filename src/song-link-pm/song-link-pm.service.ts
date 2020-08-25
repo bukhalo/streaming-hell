@@ -5,8 +5,7 @@ import {
   Logger,
   HttpService,
 } from '@nestjs/common';
-import { TelegrafOn, Context } from 'nestjs-telegraf';
-import { Extra } from 'telegraf';
+import { On, Context, Extra } from 'nestjs-telegraf';
 import { chain, map, sortBy } from 'lodash';
 import { map as rxMap, catchError } from 'rxjs/operators';
 import { UsersService } from '../users/users.service';
@@ -112,7 +111,7 @@ export class SongLinkPmService {
     return message.match(urlRegExp);
   }
 
-  @TelegrafOn('message')
+  @On('message')
   async onMessage(ctx, next) {
     const { message } = ctx;
 

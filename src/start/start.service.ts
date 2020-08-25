@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { TelegrafCommand } from 'nestjs-telegraf';
+import { Command } from 'nestjs-telegraf';
 
 @Injectable()
 export class StartService {
-  @TelegrafCommand('start')
+  @Command('start')
   async startCommand(ctx) {
     await ctx.replyWithMarkdown(ctx.i18n.t('START_COMMAND_REPLY'));
   }

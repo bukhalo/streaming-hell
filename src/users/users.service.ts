@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { TelegrafUse } from 'nestjs-telegraf';
+import { Use } from 'nestjs-telegraf';
 import { User } from './interfaces/user.interface';
 import { CreateUser } from './dto/create-user.dto';
 
@@ -25,7 +25,7 @@ export class UsersService {
    * @param ctx Telegraf context
    * @param next Telegraf next function
    */
-  @TelegrafUse()
+  @Use()
   async telegrafSaveUser(ctx, next) {
     if (ctx.from.id) {
       const findedUser = await this.findByUserId(ctx.from.id);
