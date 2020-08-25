@@ -5,8 +5,8 @@ function launchOptions() {
   if (process.env.NODE_ENV === 'production') {
     return {
       webhook: {
-        domain: 'tg-bot.streaming-hell.com',
-        hookPath: '/webhook',
+        domain: 'streaming-hell.com',
+        hookPath: '/api/telegram-bot-webhook',
       },
     };
   }
