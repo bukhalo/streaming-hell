@@ -1,8 +1,8 @@
 {
   "name": "@streaming-hell/telegram-bot",
   "version": "0.6.1",
-  "description": "",
-  "author": "",
+  "description": "Streaming Hell Telegram bot",
+  "author": "Streaming Hell nonprofit organization.",
   "private": true,
   "license": "MIT",
   "scripts": {
