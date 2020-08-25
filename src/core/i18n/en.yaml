@@ -1,7 +1,7 @@
 ---
 LISTEN: "🎧 *Listen*\n"
 BUY: "🛍 *Buy*\n"
-NO_DATA_BY_LINK: "Unfortunately we do not have data for this link 😕"
+NO_DATA_BY_LINK: 'Unfortunately we do not have data for this link 😕'
 NO_MUSIC_LINKS_IN_MESSAGE: 'No links to music services were found in the message'
 SERVICES_COMMAND_REPLY: |
   Currently, the bot supports the following services:

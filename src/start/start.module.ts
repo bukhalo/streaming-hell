@@ -2,6 +2,6 @@ import { Module } from '@nestjs/common';
 import { StartService } from './start.service';
 
 @Module({
-  providers: [StartService]
+  providers: [StartService],
 })
 export class StartModule {}

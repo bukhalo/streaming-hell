@@ -34,23 +34,23 @@ export class SongLinkPmService {
         ...value,
       };
     });
-    const linksSorted = sortBy(links, [(i) => i.displayName]);
+    const linksSorted = sortBy(links, [i => i.displayName]);
 
-    const listenLinks = linksSorted.filter((item) => {
+    const listenLinks = linksSorted.filter(item => {
       return LISTEN_PROVIDERS.includes(item.providerName);
     });
 
     const listenMessage = chain(listenLinks)
-      .map((item) => `[${item.displayName}](${item.url})\n`)
+      .map(item => `[${item.displayName}](${item.url})\n`)
       .value()
       .join('');
 
-    const buyLinks = linksSorted.filter((item) => {
+    const buyLinks = linksSorted.filter(item => {
       return BUY_PROVIDERS.includes(item.providerName);
     });
 
     const buyMessage = chain(buyLinks)
-      .map((item) => `[${item.displayName}](${item.url})\n`)
+      .map(item => `[${item.displayName}](${item.url})\n`)
       .value()
       .join('');
 
@@ -161,9 +161,9 @@ export class SongLinkPmService {
         try {
           const data = await this.httpService
             .get('/links/byUrl', { params: { url } })
-            .pipe(rxMap((response) => response.data))
+            .pipe(rxMap(response => response.data))
             .pipe(
-              catchError((e) => {
+              catchError(e => {
                 console.error(e);
                 this.logger.error(`Error on API request ${e}`);
                 throw new Error();

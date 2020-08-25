@@ -1,23 +1,23 @@
 version: 2
 updates:
   # Configuration for npm
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "daily"
+      interval: 'daily'
     reviewers:
-      - "bukhalo"
+      - 'bukhalo'
     assignees:
-      - "bukhalo"
+      - 'bukhalo'
     open-pull-requests-limit: 5
 
   # Configuration for Dockerfile
-  - package-ecosystem: "docker"
-    directory: "/"
+  - package-ecosystem: 'docker'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     reviewers:
-      - "bukhalo"
+      - 'bukhalo'
     assignees:
-      - "bukhalo"
+      - 'bukhalo'
     open-pull-requests-limit: 5

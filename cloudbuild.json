@@ -11,10 +11,7 @@
     },
     {
       "name": "gcr.io/cloud-builders/docker",
-      "args": [
-        "push",
-        "eu.gcr.io/streaming-hell-275207/telegram-bot"
-      ]
+      "args": ["push", "eu.gcr.io/streaming-hell-275207/telegram-bot"]
     },
     {
       "name": "gcr.io/cloud-builders/gcloud",
@@ -31,7 +28,5 @@
       ]
     }
   ],
-  "images": [
-    "eu.gcr.io/streaming-hell-275207/telegram-bot"
-  ]
+  "images": ["eu.gcr.io/streaming-hell-275207/telegram-bot"]
 }
