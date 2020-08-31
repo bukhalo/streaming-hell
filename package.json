@@ -42,7 +42,7 @@
     "graphql-type-json": "0.3.2",
     "helmet": "4.1.0",
     "lodash": "4.17.20",
-    "mongoose": "5.10.1",
+    "mongoose": "5.10.2",
     "passport": "0.4.1",
     "passport-jwt": "4.0.0",
     "passport-local": "1.0.0",
