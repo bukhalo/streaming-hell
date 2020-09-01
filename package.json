@@ -33,7 +33,7 @@
     "@nestjs/jwt": "7.1.0",
     "@nestjs/mongoose": "7.0.2",
     "@nestjs/passport": "7.1.0",
-    "@nestjs/platform-express": "7.4.2",
+    "@nestjs/platform-express": "7.4.4",
     "@nestjs/swagger": "4.6.0",
     "@ntegral/nestjs-sentry": "1.0.4",
     "apollo-server-express": "2.17.0",
