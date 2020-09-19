@@ -4,7 +4,7 @@ export const validationSchema = object({
   NODE_ENV: string()
     .valid('development', 'production', 'test', 'provision')
     .default('development'),
-  PORT: number().default(3000),
+  PORT: number(),
   BOT_TOKEN: string().required(),
   MONGODB_URI: string().required(),
 });
