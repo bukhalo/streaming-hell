@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import {
   app,
+  graphqlRequestModule,
+  mongooseModule,
   telegrafModule,
   validationOptions,
   validationSchema,
@@ -12,14 +14,13 @@ import { AppService } from './app.service';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { StartModule } from './start/start.module';
 import { ServicesModule } from './services/services.module';
-import { SongLinkPmModule } from './song-link-pm/song-link-pm.module';
+import { LinksModule } from './links/links.module';
 import { UsersModule } from './users/users.module';
-import { mongooseModule } from './core/configs/mongoose-module.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      load: [app, mongooseModule, telegrafModule],
+      load: [app, graphqlRequestModule, mongooseModule, telegrafModule],
       validationOptions,
       validationSchema,
       isGlobal: true,
@@ -37,7 +38,7 @@ import { mongooseModule } from './core/configs/mongoose-module.config';
     }),
     StartModule,
     ServicesModule,
-    SongLinkPmModule,
+    LinksModule,
     UsersModule,
   ],
   controllers: [AppController],
