@@ -6,7 +6,7 @@ import { LinksByEntityQuery } from './queries/links-by-entity.query';
 import { LinksByUrlQuery } from './queries/links-by-url.query';
 
 @ApiTags('Links')
-@Controller('links')
+@Controller('api/v1/links')
 export class LinksController {
   constructor(private readonly odesliService: OdesliService) {}
 

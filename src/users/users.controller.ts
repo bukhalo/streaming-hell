@@ -7,7 +7,7 @@ import { JwtAuthGuard } from '../auth/guards';
 import { RolesGuard } from '../core/guards/roles.guard';
 
 @ApiTags('Users')
-@Controller('users')
+@Controller('api/v1/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

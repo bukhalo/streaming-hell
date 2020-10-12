@@ -10,7 +10,6 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.setGlobalPrefix('v1');
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   const telegraf = app.get('TelegrafProvider');
@@ -42,7 +41,7 @@ async function bootstrap() {
     .addTag('')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('v1', app, document);
+  SwaggerModule.setup('api/v1', app, document);
 
   // Telegraf session storage
   await TelegrafMongoSession.setup(telegraf, configService.get('MONGODB_URI'), {
@@ -60,7 +59,7 @@ async function bootstrap() {
     directory: resolve(__dirname, 'core/i18n'),
   });
   telegraf.use(i18n.middleware());
-  app.use(telegraf.webhookCallback('/webhook'));
+  app.use(telegraf.webhookCallback('/telegram-bot-webhook'));
 
   await app.listen(configService.get('app.port'));
 }

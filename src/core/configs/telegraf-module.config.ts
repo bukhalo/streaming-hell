@@ -6,7 +6,7 @@ function launchOptions() {
     return {
       webhook: {
         domain: 'streaming-hell.com',
-        hookPath: '/api/telegram-bot-webhook',
+        hookPath: '/telegram-bot-webhook',
       },
     };
   }
