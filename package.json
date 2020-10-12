@@ -1,13 +1,13 @@
 {
-  "name": "@streaming-hell/api",
+  "name": "streaming-hell",
   "version": "3.2.0",
-  "description": "Streaming Hell API",
-  "homepage": "https://github.com/streaming-hell/api#readme",
+  "description": "Search music between streaming services",
+  "homepage": "https://github.com/evilsprut/streaming-hell#readme",
   "bugs": {
-    "url": "https://github.com/streaming-hell/api/issues",
-    "email": "a@bukhalo.com"
+    "url": "https://github.com/evilsprut/streaming-hell/issues",
+    "email": "hey@evilsprut.com"
   },
-  "author": "Streaming Hell nonprofit organization.",
+  "author": "Aleksandr Bukhalo <hey@evilsprut.com>",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -43,6 +43,7 @@
     "helmet": "4.1.1",
     "lodash": "4.17.20",
     "mongoose": "5.10.6",
+    "nestjs-telegraf": "1.3.1",
     "passport": "0.4.1",
     "passport-jwt": "4.0.0",
     "passport-local": "1.0.0",
@@ -52,6 +53,8 @@
     "rxjs": "6.6.3",
     "spotify-web-api-node": "5.0.0",
     "swagger-ui-express": "4.1.4",
+    "telegraf-i18n": "^6.6.0",
+    "telegraf-session-mongodb": "^1.3.1",
     "type-graphql": "0.17.6",
     "typescript-param-validator": "1.1.0"
   },

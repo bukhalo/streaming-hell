@@ -6,9 +6,9 @@ updates:
     schedule:
       interval: 'daily'
     reviewers:
-      - 'bukhalo'
+      - 'evilsprut'
     assignees:
-      - 'bukhalo'
+      - 'evilsprut'
     open-pull-requests-limit: 5
 
   # Configuration for Dockerfile
@@ -17,7 +17,7 @@ updates:
     schedule:
       interval: 'weekly'
     reviewers:
-      - 'bukhalo'
+      - 'evilsprut'
     assignees:
-      - 'bukhalo'
+      - 'evilsprut'
     open-pull-requests-limit: 5

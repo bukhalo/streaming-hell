@@ -2,7 +2,7 @@ import { HttpException, HttpService, Injectable, Logger } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AxiosResponse } from 'axios';
-import { isURL } from 'validator';
+import isURL from 'validator/lib/isURL';
 import { FindLinks } from './interfaces/find-links.interface';
 import { ShazamDiscovery } from './interfaces/shazam-discovery.interface';
 
