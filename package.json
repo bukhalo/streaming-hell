@@ -36,7 +36,7 @@
     "@nestjs/platform-express": "7.5.5",
     "@nestjs/swagger": "4.7.5",
     "@ntegral/nestjs-sentry": "1.0.4",
-    "apollo-server-express": "2.19.0",
+    "apollo-server-express": "2.25.1",
     "applicationinsights": "1.8.8",
     "graphql": "15.4.0",
     "graphql-tools": "7.0.2",
